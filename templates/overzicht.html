@@ -36,9 +36,21 @@
 
     <div class="modal-content">
         <span id="closeBtn" class="closeBtn">&times;</span>
-        <ul id="modal-list">
+        <div class="modal-list-wrapper">
+            <ul id="modal-list-items">
+                <li>Nummer:</li>
+                <li>Merk:</li>
+                <li>Frametype:</li>
+                <li>Kleur:</li>
+                <li>Framenummer:</li>
+                <li>Opmerkingen:</li>
+                <li>Datum:</li>
+            </ul>
 
-        </ul>
+            <ul id="modal-list">
+
+            </ul>
+        </div>
     </div>
 
 </div>
@@ -80,6 +92,15 @@
             }
         }
     });
+
+    submitBtn.addEventListener('click', function(e) {
+        keuze = confirm("Weet u zeker dat u deze fiets wil verwijderen?");
+        if (keuze) {
+            return true;
+        } else {
+            e.preventDefault();
+        }
+    })
 
 </script>
 

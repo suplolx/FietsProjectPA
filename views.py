@@ -3,10 +3,15 @@ from flask_app import app, db
 from sqlalchemy import desc
 from sqlalchemy.exc import IntegrityError
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_uploads import UploadSet, configure_uploads, IMAGES
 from werkzeug.security import check_password_hash
 from models import Fiets, User
 from forms import RegistratieForm, UserLogin, SearchForm
 import datetime
+
+
+photos = UploadSet('photos', IMAGES)
+configure_uploads(app, photos)
 
 
 login_manager = LoginManager()
@@ -32,7 +37,7 @@ def formulier():
     recent_nummer = Fiets.query.order_by(desc(Fiets.Nummer)).first()
     form.fietsnummer.data = recent_nummer.Nummer + 1
     if form.validate_on_submit():
-        if request.method == 'POST':
+        if request.method == 'POST' and 'photo' in request.files:
             try:
                 fiets = Fiets(request.form['fietsnummer'], request.form['merk'],
                               request.form['frametype'],  request.form['kleur'],
@@ -42,8 +47,9 @@ def formulier():
 
                 db.session.add(fiets)
                 db.session.commit()
+                filename = photos.save(request.files['photo'])
                 flash("Fiets Nummer {} is toegevoegd!".format(form.fietsnummer.data))
-                return redirect(url_for('formulier'))
+                return (redirect(url_for('formulier')), filename)
             except IntegrityError:
                 db.session.rollback()
                 flash('Er is al een fiets met dat nummer!')
