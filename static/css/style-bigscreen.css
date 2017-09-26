@@ -1,0 +1,44 @@
+.wrapper {
+  display:grid;
+  grid-template-columns:1fr 2fr;
+}
+
+.wrapper > * {
+  padding:2em;
+}
+
+.brand {
+  font-size:2em;
+}
+
+.bedrijfs-info h3, .bedrijfs-info ul, .brand {
+  text-align:left;
+}
+
+.form-wrapper {
+  display:grid;
+  grid-template-columns:36% 36% 36%;
+}
+
+.items {
+  display:block;
+  height:200px;
+  width:75%;
+  box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7)
+}
+
+.select-row input[type="text"], .select-row input[type="submit"] {
+    width:19.69%;
+    margin-top:20px;
+    padding:0.3em;
+}
+
+.select-row input[type="date"] {
+    width:19.69%;
+    margin-top:20px;
+    padding:0.09em;
+}
+
+.mobile {
+    display:table-cell;
+}
