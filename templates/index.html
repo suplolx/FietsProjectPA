@@ -20,10 +20,123 @@
 
   </div>
 
+  <div class="dashboard-wrapper mobile">
+      <h1 id="dash-head">Dashboard</h1>
+      <div class="dashboard-content">
+
+          <div class="dashboard-item">
+              <h2>Recent toegevoegd</h2>
+              <table>
+                  <tr>
+                      <th>Nummer</th>
+                      <th>Merk</th>
+                      <th>Frametype</th>
+                      <th>Kleur</th>
+                      <th>Datum</th>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>Gazelle</td>
+                      <td>Heren</td>
+                      <td>Zwart</td>
+                      <td>2017-09-22</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>Gazelle</td>
+                      <td>Heren</td>
+                      <td>Zwart</td>
+                      <td>2017-09-22</td>
+                  </tr>
+                  <tr>
+                      <td>4</td>
+                      <td>Gazelle</td>
+                      <td>Heren</td>
+                      <td>Zwart</td>
+                      <td>2017-09-22</td>
+                  </tr>
+              </table>
+          </div>
+
+          <div class="dashboard-item">
+              <h2>Datum overschreden</h2>
+              <table>
+                  <tr>
+                      <th>Nummer</th>
+                      <th>Merk</th>
+                      <th>Frametype</th>
+                      <th>Kleur</th>
+                      <th>Datum</th>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>Gazelle</td>
+                      <td>Heren</td>
+                      <td>Zwart</td>
+                      <td>2017-09-22</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>Gazelle</td>
+                      <td>Heren</td>
+                      <td>Zwart</td>
+                      <td>2017-09-22</td>
+                  </tr>
+                  <tr>
+                      <td>4</td>
+                      <td>Gazelle</td>
+                      <td>Heren</td>
+                      <td>Zwart</td>
+                      <td>2017-09-22</td>
+                  </tr>
+              </table>
+          </div>
+      </div>
+
+      <h1>Grafiek</h1>
+      <div class="dashboard-graph">
+        <canvas id="myChart" width="200" height="200"></canvas>
+        <script>
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Sparta", "Gazelle", "Batavus", "Giant", "BPL", "NB"],
+                datasets: [{
+                    label: 'Fietsmerken',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+
+                    ],
+                    fill:false,
+                    lineTension:0,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+        </script>
+      </div>
+  </div>
+
   <script>
     if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/service-worker.js', {scope: './'}).then(function(registration) {
+    navigator.serviceWorker.register('service-worker.js', {scope: './'}).then(function(registration) {
       // Registration was successful
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
     }, function(err) {
