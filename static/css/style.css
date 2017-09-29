@@ -105,9 +105,8 @@ img {
 }
 
 .items {
-  display:block;
-  background-color:#6d8dad;
-  color:#f9feff;
+  background-color:#c9e6ff;
+  color:#385e74;
   text-align: center;
   height:200px;
   width:100%;
@@ -120,8 +119,8 @@ img {
 }
 
 .items:hover, .items:focus {
-  background-color:#f9feff;
-  color:#6d8dad;
+  background-color:#6d8dad;
+  color:#f9feff;
   transition:background-color 1s ease-out;
   outline:none
 }
@@ -136,6 +135,7 @@ table {
 
 th, td {
   text-align:center;
+  padding:0;
 }
 
 tr:nth-child(even){
@@ -157,7 +157,7 @@ td {
   border-bottom:1px solid #c9e6ff;
 }
 
-td input[type="submit"] {
+#submit-btn {
     font-family:FontAwesome;
     background-color:white;
     color:#e25a5a;
@@ -169,10 +169,28 @@ td input[type="submit"] {
     font-size:20px;
 }
 
-td input[type="submit"]:hover, td input[type="submit"]:focus {
+#submit-btn2 {
+    font-family:FontAwesome;
+    background-color:white;
+    color:#a4c16e;
+    border:1px solid #a4c16e;
+    border-radius:5px;
+    padding:0.3em 0.3em;
+    cursor:pointer;
+    margin:3px 5px;
+    font-size:20px;
+}
+
+#submit-btn:hover, #submit-btn:focus {
     transition:background-color 0.5s ease-out;
     color:white;
     background-color:#e25a5a;
+}
+
+#submit-btn2:hover, #submit-btn2:focus {
+    transition:background-color 0.5s ease-out;
+    color:white;
+    background-color:#a4c16e;
 }
 
 .mobile {
@@ -327,14 +345,18 @@ td input[type="submit"]:hover, td input[type="submit"]:focus {
  }
 
  .modal-header {
+    background:#c9e6ff;
+    padding:4px 15px;
+    color:#fff;
+ }
+
+ .modal-header h2 .modal-footer{
      margin:0;
-     padding:0;
  }
 
  .modal-content {
      background-color:#f4f4f4;
      margin:20% auto;
-     padding:20px;
      width:70%;
      box-shadow:0 5px 8px 0 rgba(0, 0, 0, 0,2), 0 7px 20px 0 rgba(0,0,0,0.17);
  }
@@ -343,6 +365,7 @@ td input[type="submit"]:hover, td input[type="submit"]:focus {
      display:grid;
      grid-template-columns:1fr 1fr;
      grid-gap:10px;
+     padding:10px 20px;
  }
 
  #modal-list-items {
@@ -350,7 +373,7 @@ td input[type="submit"]:hover, td input[type="submit"]:focus {
  }
 
  .closeBtn {
-     color:#ccc;
+     color:#fff;
      float:right;
      font-size:30px;
  }
@@ -361,3 +384,6 @@ td input[type="submit"]:hover, td input[type="submit"]:focus {
      cursor:pointer;
  }
 
+.items i {
+    display:block;
+}

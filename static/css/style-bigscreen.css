@@ -22,11 +22,18 @@
 }
 
 .items {
-  display:block;
-  height:200px;
+  background-color:#c9e6ff;
+  color:#385e74;
+  height:54px;
   width:100%;
-  margin:auto;
+  margin-bottom:-20px;
   box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7)
+}
+
+.items:hover, .items:focus {
+  background-color:#6d8dad;
+  color:#f9feff;
+  transition:background-color 1s ease-out;
 }
 
 .select-row input[type="text"], .select-row input[type="submit"] {
@@ -107,4 +114,13 @@
 
 .dashboard-item td {
   border-bottom:1px solid #c9e6ff;
+}
+
+.items i {
+    display:none;
+}
+
+.modal-content {
+    margin:10% auto;
+    width:378px;
 }

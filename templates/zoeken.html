@@ -19,6 +19,7 @@
     <th class="mobile">Framenummer</th>
     <th class="mobile">Opmerkingen</th>
     <th class="mobile">Datum</th>
+    <th class="mobile"></th>
     <th></th>
   </tr>
 
@@ -31,6 +32,11 @@
     <td class="mobile">{{ r.Framenummer }}</td>
     <td class="mobile">{{ r.Opmerkingen }}</td>
     <td class="mobile">{{ r.Datum }}</td>
+    <td class="mobile">
+        <form method="POST" action="{{url_for('edit_page', id=r.Nummer)}}">
+            <input id="submit-btn2" type="submit" value="&#xf044;">
+        </form>
+    </td>
     <td>
         <form method="POST" action="{{url_for('delete_fiets', id=r.Nummer)}}">
             <input id="submit-btn" type="submit" value="&#xf014;">
@@ -70,6 +76,7 @@
     var closeBtn = document.getElementById("closeBtn");
     var modalList = document.getElementById("modal-list");
     var submitBtn = document.getElementById("submit-btn");
+    var editBtn = document.getElementById("submit-btn2");
 
     elems.forEach(function(elem) {
 		elem.addEventListener('click', function() {
@@ -93,7 +100,7 @@
     });
 
     window.addEventListener('click', function(e) {
-        if( (e.target == modal) || (e.target == submitBtn)){
+        if( (e.target == modal) || (e.target == submitBtn) || (e.target == editBtn)) {
             modal.style.display = 'none';
             while(modalList.firstChild) {
                 modalList.removeChild( modalList.firstChild );

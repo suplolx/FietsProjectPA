@@ -106,6 +106,37 @@ def delete_fiets(id):
     return redirect(url_for('search'))
 
 
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_page(id):
+    form = RegistratieForm()
+    fiets = Fiets.query.filter_by(Nummer=id).first()
+    form.fietsnummer.data = fiets.Nummer
+    form.merk.data = fiets.Merk
+    form.frametype.data = fiets.FrameType
+    form.kleur.data = fiets.Kleur
+    form.framenummer.data = fiets.Framenummer
+    form.gravpostcode.data = fiets.Gegraveerde_postcode
+    form.opmerkingen.data = fiets.Opmerkingen
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            update_dict = {
+                    "Nummer": request.form['fietsnummer'],
+                    "Merk": request.form['merk'],
+                    "FrameType": request.form['frametype'],
+                    "Kleur": request.form['kleur'],
+                    "Framenummer": request.form['framenummer'],
+                    "Gegraveerde_postcode": request.form['gravpostcode'],
+                    "Opmerkingen": request.form['opmerkingen']
+                }
+            new_fiets = Fiets.query.filter_by(Nummer=id).update(update_dict)
+            db.session.commit()
+            flash('Fiets nummer {} aangepast!'.format(id))
+            return redirect(url_for('search'))
+
+    return render_template('edit.html', form=form)
+
+
 @app.route('/logout')
 @login_required
 def logout():
