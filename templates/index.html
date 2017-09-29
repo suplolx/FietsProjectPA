@@ -24,8 +24,8 @@
       <h1 id="dash-head">Dashboard</h1>
       <div class="dashboard-content">
 
-          <div class="dashboard-item">
-              <h2>Recent toegevoegd</h2>
+          <div class="dashboard-item recent">
+              <h2>Vandaag toegevoegd</h2>
               <table>
                   <tr>
                       <th>Nummer</th>
@@ -33,32 +33,26 @@
                       <th>Frametype</th>
                       <th>Kleur</th>
                       <th>Datum</th>
+                      <th></th>
                   </tr>
+                  {% for v in vandaag %}
                   <tr>
-                      <td>2</td>
-                      <td>Gazelle</td>
-                      <td>Heren</td>
-                      <td>Zwart</td>
-                      <td>2017-09-22</td>
+                      <td>{{ v.Nummer }}</td>
+                      <td>{{ v.Merk }}</td>
+                      <td>{{ v.FrameType }}</td>
+                      <td>{{ v.Kleur }}</td>
+                      <td>{{ v.Datum }}</td>
+                      <td>
+                        <form method="POST" action="{{url_for('delete_fiets', id=v.Nummer)}}">
+                            <input id="submit-btn" type="submit" value="&#xf014;">
+                        </form>
+                      </td>
                   </tr>
-                  <tr>
-                      <td>3</td>
-                      <td>Gazelle</td>
-                      <td>Heren</td>
-                      <td>Zwart</td>
-                      <td>2017-09-22</td>
-                  </tr>
-                  <tr>
-                      <td>4</td>
-                      <td>Gazelle</td>
-                      <td>Heren</td>
-                      <td>Zwart</td>
-                      <td>2017-09-22</td>
-                  </tr>
+                  {% endfor %}
               </table>
           </div>
 
-          <div class="dashboard-item">
+          <div class="dashboard-item overschreden">
               <h2>Datum overschreden</h2>
               <table>
                   <tr>
@@ -67,28 +61,22 @@
                       <th>Frametype</th>
                       <th>Kleur</th>
                       <th>Datum</th>
+                      <th></th>
                   </tr>
+                  {% for o in overschreden %}
                   <tr>
-                      <td>2</td>
-                      <td>Gazelle</td>
-                      <td>Heren</td>
-                      <td>Zwart</td>
-                      <td>2017-09-22</td>
+                      <td>{{ o.Nummer }}</td>
+                      <td>{{ o.Merk }}</td>
+                      <td>{{ o.FrameType }}</td>
+                      <td>{{ o.Kleur }}</td>
+                      <td>{{ o.Datum }}</td>
+                      <td>
+                        <form method="POST" action="{{url_for('delete_fiets', id=o.Nummer)}}">
+                            <input id="submit-btn" type="submit" value="&#xf014;">
+                        </form>
+                      </td>
                   </tr>
-                  <tr>
-                      <td>3</td>
-                      <td>Gazelle</td>
-                      <td>Heren</td>
-                      <td>Zwart</td>
-                      <td>2017-09-22</td>
-                  </tr>
-                  <tr>
-                      <td>4</td>
-                      <td>Gazelle</td>
-                      <td>Heren</td>
-                      <td>Zwart</td>
-                      <td>2017-09-22</td>
-                  </tr>
+                  {% endfor %}
               </table>
           </div>
       </div>

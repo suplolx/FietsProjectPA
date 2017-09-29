@@ -120,6 +120,12 @@
     display:none;
 }
 
+/*
+.overschreden td {
+    color:#e25a5a;
+}
+*/
+
 .modal-content {
     margin:10% auto;
     width:378px;

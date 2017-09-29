@@ -7,11 +7,13 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from werkzeug.security import check_password_hash
 from models import Fiets, User
 from forms import RegistratieForm, UserLogin, SearchForm
+from dateutil.relativedelta import relativedelta
 import datetime
 
 
 # photos = UploadSet('photos', IMAGES)
 # configure_uploads(app, photos)
+DATE_THRESHOLD = 7
 
 
 login_manager = LoginManager()
@@ -27,7 +29,13 @@ def load_user(user_id):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    vandaag_q = Fiets.query.order_by(desc(Fiets.Id)).limit(5).all()
+    vandaag = [d for d in vandaag_q if datetime.date.today() == d.Datum]
+
+    overschreden_q = Fiets.query.limit(5).all()
+    overschreden = [d for d in overschreden_q if datetime.date.today() >= d.Datum + relativedelta(days=7)]
+
+    return render_template('index.html', vandaag=vandaag, overschreden=overschreden)
 
 
 @app.route('/formulier', methods=['GET', 'POST'])
@@ -103,7 +111,7 @@ def delete_fiets(id):
     db.session.delete(fiets)
     db.session.commit()
     flash('Fiets nummer {} is succesvol verwijderd!'.format(id))
-    return redirect(url_for('search'))
+    return redirect(url_for('index'))
 
 
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
