@@ -25,6 +25,7 @@
       <div class="dashboard-content">
 
           <div class="dashboard-item recent">
+              {% if vandaag|length > 0 %}
               <h2>Vandaag toegevoegd</h2>
               <table>
                   <tr>
@@ -50,10 +51,26 @@
                   </tr>
                   {% endfor %}
               </table>
+              {% else %}
+               <h2>Vandaag toegevoegd</h2>
+              <table>
+                  <tr>
+                      <th>Nummer</th>
+                      <th>Merk</th>
+                      <th>Frametype</th>
+                      <th>Kleur</th>
+                      <th>Datum</th>
+                      <th></th>
+                  </tr>
+              </table>
+              <h4>Er zijn vandaag geen fietsen toegoevoegd!</h4>
+              {% endif %}
+
           </div>
 
           <div class="dashboard-item overschreden">
-              <h2>Datum overschreden</h2>
+              {% if overschreden|length > 0 %}
+              <h2>Datum overschreden <img src="/static/img/warning.gif" alt="waarschuwing"/></h2>
               <table>
                   <tr>
                       <th>Nummer</th>
@@ -78,6 +95,20 @@
                   </tr>
                   {% endfor %}
               </table>
+              {% else %}
+              <h2>Datum overschreden</h2>
+              <table>
+                  <tr>
+                      <th>Nummer</th>
+                      <th>Merk</th>
+                      <th>Frametype</th>
+                      <th>Kleur</th>
+                      <th>Datum</th>
+                      <th></th>
+                  </tr>
+              </table>
+              <h4>Er staan geen fietsen langer dan 3 maanden!</h4>
+              {% endif %}
           </div>
       </div>
 
@@ -85,14 +116,15 @@
       <div class="dashboard-graph">
         <canvas id="myChart" width="200" height="200"></canvas>
         <script>
+        var graphdata = JSON.parse('{{graph_json|safe}}');
         var ctx = document.getElementById("myChart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ["Sparta", "Gazelle", "Batavus", "Giant", "BPL", "NB"],
+                labels: Object.keys(graphdata),
                 datasets: [{
-                    label: 'Fietsmerken',
-                    data: [12, 19, 3, 5, 2, 3],
+                    label: 'Aantal fietsen deze week',
+                    data: Object.values(graphdata),
                     backgroundColor: [
                         'rgba(54, 162, 235, 0.2)',
 
@@ -121,18 +153,5 @@
       </div>
   </div>
 
-  <script>
-    if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('service-worker.js', {scope: './'}).then(function(registration) {
-      // Registration was successful
-      console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }, function(err) {
-      // registration failed :(
-      console.log('ServiceWorker registration failed: ', err);
-    });
-  });
-}
-</script>
 
 {% endblock %}

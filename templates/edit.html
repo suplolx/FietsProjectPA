@@ -53,7 +53,7 @@
 
     <p class="full">
       <label for="opmerkingen">Opmerkingen <span id="word-count">200</span></label>
-      {{ form.opmerkingen }}
+      {{ form.opmerkingen(max_length=200) }}
     </p>
 
     <p class="full">

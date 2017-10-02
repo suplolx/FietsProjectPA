@@ -116,6 +116,16 @@
   border-bottom:1px solid #c9e6ff;
 }
 
+.dashboard-item img {
+    height:30px;
+    width:30px;
+}
+
+.overschreden tr:hover {
+    background-color:#e25a5a;
+    color:white;
+}
+
 .items i {
     display:none;
 }

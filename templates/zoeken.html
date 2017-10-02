@@ -17,8 +17,8 @@
     <th>Frametype</th>
     <th>Kleur</th>
     <th class="mobile">Framenummer</th>
-    <th class="mobile">Opmerkingen</th>
     <th class="mobile">Datum</th>
+    <th style="display:none" class="mobile">Opmerkingen</th>
     <th class="mobile"></th>
     <th></th>
   </tr>
@@ -30,8 +30,8 @@
     <td>{{ r.FrameType }}</td>
     <td>{{ r.Kleur }}</td>
     <td class="mobile">{{ r.Framenummer }}</td>
-    <td class="mobile">{{ r.Opmerkingen }}</td>
     <td class="mobile">{{ r.Datum }}</td>
+    <td style="display:none" class="mobile">{{ r.Opmerkingen }}</td>
     <td class="mobile">
         <form method="POST" action="{{url_for('edit_page', id=r.Nummer)}}">
             <input id="submit-btn2" type="submit" value="&#xf044;">
@@ -49,7 +49,10 @@
 <div id="simpleModal" class="modal">
 
     <div class="modal-content">
-        <span id="closeBtn" class="closeBtn">&times;</span>
+        <div class="modal-header">
+            <span id="closeBtn" class="closeBtn">&times;</span>
+            <h2>Fiets data</h2>
+        </div>
         <div class="modal-list-wrapper">
             <ul id="modal-list-items">
                 <li>Nummer:</li>
@@ -57,8 +60,8 @@
                 <li>Frametype:</li>
                 <li>Kleur:</li>
                 <li>Framenummer:</li>
-                <li>Opmerkingen:</li>
                 <li>Datum:</li>
+                <li>Opmerkingen:</li>
             </ul>
 
             <ul id="modal-list">

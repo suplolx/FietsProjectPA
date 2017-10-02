@@ -9,6 +9,7 @@ from models import Fiets, User
 from forms import RegistratieForm, UserLogin, SearchForm
 from dateutil.relativedelta import relativedelta
 import datetime
+import json
 
 
 # photos = UploadSet('photos', IMAGES)
@@ -29,13 +30,17 @@ def load_user(user_id):
 
 @app.route('/')
 def index():
-    vandaag_q = Fiets.query.order_by(desc(Fiets.Id)).limit(5).all()
-    vandaag = [d for d in vandaag_q if datetime.date.today() == d.Datum]
 
-    overschreden_q = Fiets.query.limit(5).all()
-    overschreden = [d for d in overschreden_q if datetime.date.today() >= d.Datum + relativedelta(days=7)]
+    vandaag = [d for d in Fiets.query.order_by(desc(Fiets.Id)).limit(5).all() if datetime.date.today() == d.Datum]
+    overschreden = [d for d in Fiets.query.limit(5).all() if datetime.date.today() >= d.Datum + relativedelta(months=3)]
 
-    return render_template('index.html', vandaag=vandaag, overschreden=overschreden)
+    dagen = [datetime.date.today() - relativedelta(days=d) for d in range(7)]
+    dagen = [d.strftime('%Y-%m-%d') for d in dagen]
+    aantal_fietsen = [len(Fiets.query.filter_by(Datum=d).all()) for d in dagen]
+
+    graph_dict = dict(zip(dagen, aantal_fietsen))
+
+    return render_template('index.html', vandaag=vandaag, overschreden=overschreden, graph_json=json.dumps(graph_dict, sort_keys=True))
 
 
 @app.route('/formulier', methods=['GET', 'POST'])

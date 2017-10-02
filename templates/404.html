@@ -1,5 +1,10 @@
 {% extends "header.html" %}
 
 {% block body %}
-<p>De pagina kon niet gevonden worden</p>
+<div class="error-wrapper">
+    <h2>Oops! Deze pagina bestaat niet.</h2>
+    <img src="/static/img/404.png"/>
+    <p><a href="/">Klik hier</a> om terug te gaan naar de homepagina</p>
+</div>
+
 {% endblock %}

@@ -372,6 +372,10 @@ td {
     font-weight:bold;
  }
 
+ #modal-list {
+    overflow:scroll;
+ }
+
  .closeBtn {
      color:#fff;
      float:right;
@@ -386,4 +390,15 @@ td {
 
 .items i {
     display:block;
+}
+
+.error-wrapper {
+    padding:5em 0;
+    margin:auto;
+    text-align:center;
+}
+
+.error-wrapper img {
+    height:300px;
+    width:320px;
 }
