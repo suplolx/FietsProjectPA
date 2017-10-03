@@ -26,7 +26,7 @@
 
           <div class="dashboard-item recent">
               {% if vandaag|length > 0 %}
-              <h2>Vandaag toegevoegd</h2>
+              <h2>Vandaag toegevoegd ({{vandaag|length}})</h2>
               <table>
                   <tr>
                       <th>Nummer</th>
@@ -36,6 +36,7 @@
                       <th>Datum</th>
                       <th></th>
                   </tr>
+
                   {% for v in vandaag %}
                   <tr>
                       <td>{{ v.Nummer }}</td>
@@ -52,7 +53,7 @@
                   {% endfor %}
               </table>
               {% else %}
-               <h2>Vandaag toegevoegd</h2>
+              <h2>Vandaag toegevoegd</h2>
               <table>
                   <tr>
                       <th>Nummer</th>
@@ -68,9 +69,10 @@
 
           </div>
 
+
           <div class="dashboard-item overschreden">
               {% if overschreden|length > 0 %}
-              <h2>Datum overschreden <img src="/static/img/warning.gif" alt="waarschuwing"/></h2>
+              <h2>Datum overschreden ({{overschreden|length}}) <img src="/static/img/warning.gif" alt="waarschuwing"/></h2>
               <table>
                   <tr>
                       <th>Nummer</th>
@@ -80,15 +82,15 @@
                       <th>Datum</th>
                       <th></th>
                   </tr>
-                  {% for o in overschreden %}
+                  {% for n in range(5) %}
                   <tr>
-                      <td>{{ o.Nummer }}</td>
-                      <td>{{ o.Merk }}</td>
-                      <td>{{ o.FrameType }}</td>
-                      <td>{{ o.Kleur }}</td>
-                      <td>{{ o.Datum }}</td>
+                      <td>{{ overschreden[n].Nummer }}</td>
+                      <td>{{ overschreden[n].Merk }}</td>
+                      <td>{{ overschreden[n].FrameType }}</td>
+                      <td>{{ overschreden[n].Kleur }}</td>
+                      <td>{{ overschreden[n].Datum }}</td>
                       <td>
-                        <form method="POST" action="{{url_for('delete_fiets', id=o.Nummer)}}">
+                        <form method="POST" action="{{url_for('delete_fiets', id=overschreden[n].Nummer)}}">
                             <input id="submit-btn" type="submit" value="&#xf014;">
                         </form>
                       </td>
@@ -112,29 +114,41 @@
           </div>
       </div>
 
+      <div class="dashboard-item">
+
+      </div>
+
       <h1>Grafiek</h1>
       <div class="dashboard-graph">
-        <canvas id="myChart" width="200" height="200"></canvas>
+        <canvas id="Merken" width="200" height="200"></canvas>
         <script>
-        var graphdata = JSON.parse('{{graph_json|safe}}');
-        var ctx = document.getElementById("myChart").getContext('2d');
+        var graphdata = JSON.parse('{{graph_merk|safe}}');
+        var ctx = document.getElementById("Merken").getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: Object.keys(graphdata),
                 datasets: [{
-                    label: 'Aantal fietsen deze week',
+                    label: ['Aantal'],
                     data: Object.values(graphdata),
                     backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
 
                     ],
                     borderColor: [
+                        'rgba(255,99,132,1)',
                         'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
 
                     ],
-                    fill:false,
-                    lineTension:0,
+                    //fill:false,
+                    //lineTension:0,
                 }]
             },
             options: {

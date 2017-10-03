@@ -32,15 +32,20 @@ def load_user(user_id):
 def index():
 
     vandaag = [d for d in Fiets.query.order_by(desc(Fiets.Id)).limit(5).all() if datetime.date.today() == d.Datum]
-    overschreden = [d for d in Fiets.query.limit(5).all() if datetime.date.today() >= d.Datum + relativedelta(months=3)]
+    overschreden = [d for d in Fiets.query.all() if datetime.date.today() >= d.Datum + relativedelta(days=7)]
 
-    dagen = [datetime.date.today() - relativedelta(days=d) for d in range(7)]
-    dagen = [d.strftime('%Y-%m-%d') for d in dagen]
-    aantal_fietsen = [len(Fiets.query.filter_by(Datum=d).all()) for d in dagen]
+    merk_dict = {"Gazelle":len(Fiets.query.filter_by(Merk="Gazelle").all()),
+                  "Batavus":len(Fiets.query.filter_by(Merk="Batavus").all()),
+                  "Sparta":len(Fiets.query.filter_by(Merk="Sparta").all()),
+                  "Giant":len(Fiets.query.filter_by(Merk="Giant").all()),
+                  "Overige":len(Fiets.query.filter(Fiets.Merk != "Gazelle").\
+                         filter(Fiets.Merk != "Batavus").\
+                         filter(Fiets.Merk != "Giant").\
+                         filter(Fiets.Merk != "Sparta").all())
+    }
 
-    graph_dict = dict(zip(dagen, aantal_fietsen))
-
-    return render_template('index.html', vandaag=vandaag, overschreden=overschreden, graph_json=json.dumps(graph_dict, sort_keys=True))
+    return render_template('index.html', vandaag=vandaag,
+    overschreden=overschreden, graph_merk=json.dumps(merk_dict, sort_keys=True))
 
 
 @app.route('/formulier', methods=['GET', 'POST'])
