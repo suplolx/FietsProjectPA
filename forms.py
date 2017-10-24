@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms.fields import TextField, TextAreaField, SubmitField, IntegerField, PasswordField, BooleanField
+from wtforms.fields import TextField, TextAreaField, SubmitField, IntegerField, PasswordField, BooleanField, HiddenField
 from wtforms.validators import DataRequired, Length
 
 
@@ -11,6 +11,7 @@ class RegistratieForm(Form):
     framenummer = TextField("Framenummer")
     gravpostcode = TextField("Graveer code")
     opmerkingen = TextAreaField("Opmerkingen", validators=[Length(min=0, max=200)])
+    imgdata = HiddenField("Foto")
     formBtn = SubmitField("VOEG TOE")
 
 

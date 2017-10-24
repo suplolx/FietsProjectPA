@@ -18,6 +18,11 @@
       <i class="fa fa-search desktop" aria-hidden="true"></i>
     </div></a>
 
+    <a href="/test"><div class="items">
+      <h1>Test</h1>
+      <i class="fa fa-bug desktop" aria-hidden="true"></i>
+    </div></a>
+
   </div>
 
   <div class="dashboard-wrapper mobile">
@@ -26,7 +31,7 @@
 
           <div class="dashboard-item recent">
               {% if vandaag|length > 0 %}
-              <h2>Vandaag toegevoegd ({{vandaag|length}})</h2>
+              <h2>Vandaag toegevoegd</h2>
               <table>
                   <tr>
                       <th>Nummer</th>
@@ -45,8 +50,8 @@
                       <td>{{ v.Kleur }}</td>
                       <td>{{ v.Datum }}</td>
                       <td>
-                        <form method="POST" action="{{url_for('delete_fiets', id=v.Nummer)}}">
-                            <input id="submit-btn" type="submit" value="&#xf014;">
+                        <form method="POST" action="{{url_for('fiets', id=v.Nummer)}}">
+                            <input class="edt" type="submit" value="&#xf00e;">
                         </form>
                       </td>
                   </tr>
@@ -82,20 +87,37 @@
                       <th>Datum</th>
                       <th></th>
                   </tr>
-                  {% for n in range(5) %}
-                  <tr>
-                      <td>{{ overschreden[n].Nummer }}</td>
-                      <td>{{ overschreden[n].Merk }}</td>
-                      <td>{{ overschreden[n].FrameType }}</td>
-                      <td>{{ overschreden[n].Kleur }}</td>
-                      <td>{{ overschreden[n].Datum }}</td>
-                      <td>
-                        <form method="POST" action="{{url_for('delete_fiets', id=overschreden[n].Nummer)}}">
-                            <input id="submit-btn" type="submit" value="&#xf014;">
-                        </form>
-                      </td>
-                  </tr>
-                  {% endfor %}
+                  {% if overschreden|length >= 5 %}
+                      {% for n in range(5) %}
+                      <tr>
+                          <td>{{ overschreden[n].Nummer }}</td>
+                          <td>{{ overschreden[n].Merk }}</td>
+                          <td>{{ overschreden[n].FrameType }}</td>
+                          <td>{{ overschreden[n].Kleur }}</td>
+                          <td>{{ overschreden[n].Datum }}</td>
+                          <td>
+                            <form method="POST" action="{{url_for('delete_fiets', id=overschreden[n].Nummer)}}">
+                                <input id="submit-btn" type="submit" value="&#xf014;">
+                            </form>
+                          </td>
+                      </tr>
+                      {% endfor %}
+                  {% else %}
+                      {% for n in range(overschreden|length) %}
+                      <tr>
+                          <td>{{ overschreden[n].Nummer }}</td>
+                          <td>{{ overschreden[n].Merk }}</td>
+                          <td>{{ overschreden[n].FrameType }}</td>
+                          <td>{{ overschreden[n].Kleur }}</td>
+                          <td>{{ overschreden[n].Datum }}</td>
+                          <td>
+                            <form method="POST" action="{{url_for('delete_fiets', id=overschreden[n].Nummer)}}">
+                                <input id="submit-btn" type="submit" value="&#xf014;">
+                            </form>
+                          </td>
+                      </tr>
+                      {% endfor %}
+                  {% endif %}
               </table>
               {% else %}
               <h2>Datum overschreden</h2>
@@ -166,6 +188,7 @@
         </script>
       </div>
   </div>
+
 
 
 {% endblock %}

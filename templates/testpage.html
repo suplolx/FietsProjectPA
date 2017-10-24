@@ -1,0 +1,22 @@
+{% extends "header.html" %}
+
+{% block body %}
+
+<p>Batterij percentage: <span id="bat-stat">0</span></p>
+<p>Batterij aan het opladen: <span id="charge">0</span></p>
+
+<script>
+
+    var batPromise = navigator.getBattery();
+    var batStat = document.getElementById('bat-stat');
+    var isCharging = document.getElementById('charge');
+
+    batPromise.then(function(battery) {
+        batPerc = battery.level * 100;
+        batStat.innerHTML = batPerc;
+        isCharging.innerHTML = battery.charging ? 'Ja' : 'Nee';
+    })
+
+</script>
+
+{% endblock %}

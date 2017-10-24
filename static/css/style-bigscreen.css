@@ -21,6 +21,12 @@
   grid-gap:40px;
 }
 
+.fiets-wrapper {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-column-gap:20px;
+}
+
 .items {
   background-color:#c9e6ff;
   color:#385e74;
@@ -89,8 +95,8 @@
 }
 
 .dashboard-item table {
-  box-shadow:none;
-  padding
+  border-collapse: collapse;
+  width:100%;
 }
 
 .dashboard-item th, td {
@@ -121,6 +127,10 @@
     width:30px;
 }
 
+.dashboard-item .edt {
+    padding:0.1em;
+}
+
 .overschreden tr:hover {
     background-color:#e25a5a;
     color:white;
@@ -140,3 +150,9 @@
     margin:10% auto;
     width:378px;
 }
+
+.btn-group {
+    grid-column:1/2;
+    width:100%;
+}
+

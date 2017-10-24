@@ -48,7 +48,9 @@
         {% endif %}
       </div>
     </div>
-
+    <div id="status" class="no-connection">
+          <p>&#x26A0; Geen internet connectie. U kunt geen fietsen toevoegen, aanpassen of verwijderen.</p>
+    </div>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         <ul>
@@ -64,14 +66,43 @@
 
   </div>
 
+<script>
+
+    const statusMsg = document.getElementById('status');
+
+    statusMsg.style.display = navigator.onLine ? 'none' : 'block';
+
+    window.addEventListener('online', function() {
+        statusMsg.style.display = 'none';
+    })
+
+    window.addEventListener('offline', function() {
+        statusMsg.style.display = 'block';
+    })
+
+</script>
 
 <script>
-  var flashMsg = document.getElementById('flask-flash');
+    var flashMsg = document.getElementById('flask-flash');
 
-  flashMsg.addEventListener('click', function() {
+    flashMsg.addEventListener('click', function() {
     window.location.replace('/overzicht');
     return
-  })
+    })
+</script>
+
+<script type="text/javascript">
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register("/../sw.js").then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
 </script>
 
 </body>
