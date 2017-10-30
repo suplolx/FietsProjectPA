@@ -49,9 +49,35 @@ body {
   margin-bottom:-5px;
 }
 
-.navbar a:hover {
-  color:#f9feff;
-  transition: color 1s ease-out;
+.dropdown {
+    position:relative;
+    padding:0.5em 0 0;
+    margin-top:14px;
+}
+
+.dropdown i {
+    font-size:26px;
+    cursor:pointer;
+}
+
+.dropdown i:hover {
+    color:#f9feff;
+    transition: color 1s ease-out;
+}
+
+.navbar-content{
+    display:none;
+    position:absolute;
+    z-index:1;
+    text-align:left;
+    right:0;
+    background-color:#f9feff;
+    box-shadow:0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding:0 1em 0.5em 1em;
+}
+
+.show {
+    display:block;
 }
 
 ul {
@@ -259,8 +285,6 @@ img {
 }
 
 .registratie form input[type="file"] {
-    margin-left:50%;
-    margin-right:50%;
     display:none;
 }
 
@@ -290,6 +314,18 @@ img {
     display:none;
 }
 
+#close-btn {
+    margin-top:-20px;
+    font-size:30px;
+    text-align:right;
+    float:right;
+    cursor:pointer;
+}
+
+#err-msg {
+    margin:0;
+    padding-right:30px;
+}
 
 #formBtn {
   background:#c9e6ff;
@@ -489,12 +525,14 @@ img {
 
 .fiets-item {
     margin-top:15px;
+    margin-bottom:7px;
     box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
 }
 
 .fiets-item table {
   border-collapse: collapse;
   width:100%;
+  height:100%;
 }
 
 .fiets-item th, td {
@@ -647,7 +685,7 @@ img {
 }
 
 video {
-    width:100%;
+    /*width:100%;*/
 }
 
 #canvas {
@@ -656,4 +694,8 @@ video {
 
 .picture-capture {
     display:none;
+}
+
+.desktop {
+    display:block;
 }

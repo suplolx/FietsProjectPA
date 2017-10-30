@@ -59,7 +59,6 @@
 }
 
 .dashboard-wrapper {
-    margin:40px auto;
     display:block;
     background-color:#f9feff;
     border-radius:5px 5px 0 0;
@@ -156,3 +155,6 @@
     width:100%;
 }
 
+.desktop {
+    display:none;
+}

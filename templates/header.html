@@ -41,11 +41,20 @@
         <!--<a href="/"><img src="{{ url_for('static', filename='img/fietsfoetsie.png') }}"</></a>-->
       </div>
       <div class="navbar">
-        {% if current_user.is_authenticated %}
-        <a href="/logout"><strong><p>Loguit</p></strong></a>
-        {% else %}
-        <a href="/login"><strong><p>Login</p></strong></a>
-        {% endif %}
+        <div class="dropdown">
+        <i id="dropdown-btn" class="fa fa-bars" aria-hidden="true"></i>
+            <div id="dropdown-content" class="navbar-content">
+                <a href="/formulier"><strong><p>Registratie</p></strong></a>
+                <a href="/overzicht"><strong><p>Overzicht</p></strong></a>
+                <a href="/zoeken"><strong><p>Zoeken</p></strong></a>
+                <hr>
+                {% if current_user.is_authenticated %}
+                <a href="/logout"><strong><p>Loguit</p></strong></a>
+                {% else %}
+                <a href="/login"><strong><p>Login</p></strong></a>
+                {% endif %}
+            </div>
+        </div>
       </div>
     </div>
     <div id="status" class="no-connection">
@@ -65,6 +74,29 @@
     {% block body %}{% endblock %}
 
   </div>
+
+<script>
+
+    const dropBtn = document.getElementById('dropdown-btn');
+
+    dropBtn.addEventListener('click', function() {
+        document.getElementById('dropdown-content').classList.toggle('show');
+    })
+
+    window.onlick = function(e) {
+        if (!e.target.matches('.dropdown-btn')) {
+            var dropCont = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropCont.length; i++) {
+                var openDropdown = dropCont[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+
+</script>
 
 <script>
 

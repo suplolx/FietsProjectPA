@@ -45,12 +45,18 @@
       {{ form.gravpostcode }}
     </p>
 
+    <p class="full">
+      <label for="opmerkingen">Opmerkingen <span id="word-count">200</span></label>
+      {{ form.opmerkingen }}
+    </p>
+
     <p>
       {{ form.imgdata }}
     </p>
 
     <div id="camera-info" class="camera-info">
-        <p>SVP het scherm draaien om een foto te maken</p>
+        <p id="close-btn">&times;</p>
+        <p id="err-msg">SVP scherm automatisch draaien aanzetten en het scherm kantelen om een foto te maken.</p>
     </div>
 
     <div class="toggle-btns">
@@ -58,7 +64,7 @@
         <i id="file-upload" class="fa fa-folder-open" aria-hidden="true"></i>
     </div>
 
-
+    <p id="debug-msg"></p>
 
     <div id="picture-capture" class="picture-capture full">
         <video class="full" style="width:100%;" id="player" controls autoplay></video>
@@ -66,9 +72,10 @@
         <canvas class="full" id="canvas"></canvas>
     </div>
 
-    <p>
+    <p class="full">
       <input id="image-upload" type="file" accept="image/*" capture="user" name="photo">
     </p>
+
 
         <script>
         const player = document.getElementById('player');
@@ -81,22 +88,36 @@
         const fileUpl = document.getElementById('file-upload');
         const imgUpl = document.getElementById('image-upload');
         const screenBanner = document.getElementById('camera-info');
+        const debugMsg = document.getElementById("debug-msg");
+        const errMsg = document.getElementById("err-msg");
+        const closeBtn = document.getElementById("close-btn");
         var isCamHidden = true;
         var isFileHidden = true;
+        var buttonState = false;
 
 
         window.screen.orientation.addEventListener('change', function() {
-            if ((window.matchMedia("(orientation: portrait)").matches) && (pictureCap.style.display = 'block') ) {
-                screenBanner.style.display = 'none';
-            } else {
+
+            if ( (window.screen.orientation.type === 'portrait-primary') && (buttonState) ) {
                 screenBanner.style.display = 'block';
+                debugMsg.innerHTML = window.screen.orientation.type + " if block " + buttonState;
+            } else {
+                screenBanner.style.display = 'none';
+                debugMsg.innerHTML = window.screen.orientation.type + " else block " + buttonState;
             }
         });
 
         cameraTgl.addEventListener('click', function() {
+
+
             if (isCamHidden) {
+                buttonState = true;
                 if (window.matchMedia("(orientation: portrait)").matches) {
                     screenBanner.style.display = 'block';
+
+                } else if (window.screen.width >= 700) {
+                    screenBanner.style.display = 'block';
+
                 } else {
                     screenBanner.style.display = 'none';
                 }
@@ -115,14 +136,29 @@
 
                 navigator.mediaDevices.getUserMedia(constraints)
                 .then((stream) => {
-                    player.srcObject = stream
-                });
+                    player.srcObject = stream;
+                    player.src = (window.URL || window.webkitURL).createObjectURL(stream);
+                }).catch((err) => {
+                    // alert("Er is geen camera gevonden! Controleer de camera aansluiting.");
+                    pictureCap.style.display = 'none';
+                    isCamHidden = true;
+                    if (err.name === "DevicesNotFoundError") {
+                        errMsg.innerHTML = "Uw browser ondersteund de camera functie niet of er is geen camera aangetroffen. Controleer de verbinding met uw camera of gebruik een andere browser (Google Chrome/FireFox)";
+                    } else if (err.name === "NotSupportedError") {
+                        errMsg.innerHTML = "De camera functie is niet toegankelijk vanaf een onbeveiligde verbinding. Controleer of u verbonden bent met een https verbinding. <a href='https://fietsfoetsie.pythonanywhere.com/formulier'>https://fietsfoetsie.pythonanywhere.com/formulier</a>)";
+                    } else {
+                        alert("Onbekende error: " + err.name  + ". Neem contact op met de site beheerder.")
+                    }
+
+                })
+
             } else {
 
                 player.srcObject.getVideoTracks().forEach(track => track.stop());
                 pictureCap.style.display = 'none';
                 screenBanner.style.display = 'none';
                 isCamHidden = true;
+                buttonState = false;
             }
         })
 
@@ -133,7 +169,7 @@
                 isFileHidden = false;
 
             } else {
-                imgUpl.style.display = 'none'
+                imgUpl.style.display = 'none';
                 isFileHidden = true;
             }
         })
@@ -154,18 +190,15 @@
             player.srcObject.getVideoTracks().forEach(track => track.stop());
             imgData.value = canvas.toDataURL();
         });
+
+        closeBtn.addEventListener('click', function() {
+            screenBanner.style.display = "none";
+        })
     </script>
-
-
-    <p class="full">
-      <label for="opmerkingen">Opmerkingen <span id="word-count">200</span></label>
-      {{ form.opmerkingen }}
-    </p>
 
     <p class="full">
       {{ form.formBtn }}
     </p>
-
 
   </form>
 </div>

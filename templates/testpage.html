@@ -2,6 +2,98 @@
 
 {% block body %}
 
+
+<p id="test"></p>
+<p id="hidden-test"></p>
+<button id="tgl-orient">Klik</button>
+
+<script>
+
+    var testPar = document.getElementById('test');
+    var hiddenPar = document.getElementById('hidden-test');
+    var tglBtn = document.getElementById('tgl-orient');
+
+    var isCamHidden = true;
+
+    /*
+    window.screen.orientation.addEventListener('change', function(){
+        var isPortrait = window.matchMedia("(orientation: portrait)").matches;
+        if (isPortrait) {
+            hiddenPar.style.display = 'block';
+            testPar.innerHTML = isPortrait + " if block " + window.screen.orientation.type;
+        } else {
+            hiddenPar.style.display = 'block';
+            testPar.innerHTML = isPortrait + " else block " + window.screen.orientation.type;
+        }
+    });
+    */
+
+    tglBtn.addEventListener('click', function(){
+        testPar.innerHTML = window.screen.orientation.type;
+        hiddenPar.innerHTML = window.matchMedia("(orientation: portrait)").matches;
+    })
+
+</script>
+
+
+<!--
+<p><button class="btn btn-lg btn-primary" onclick="getStream()">Grab video</button></p>
+<p><video autoplay style="height: 300px; width: 520px;"></video></p>
+<p><button class="btn btn-lg btn-primary" onclick="takePhoto()">Take Photo!</button></p>
+<p><img id="imageTag" width="520" height="300"></p>
+
+<script>
+function getUserMedia(options, successCallback, failureCallback) {
+  var api = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+    navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  if (api) {
+    return api.bind(navigator)(options, successCallback, failureCallback);
+  }
+  alert('User Media API not supported.');
+}
+
+var theStream;
+
+function getStream() {
+  const constraints = {
+                    audio: false,
+                    video: {
+                        facingMode: { exact: "environment" }
+                    }
+                };
+
+  getUserMedia(constraints, function(stream) {
+    var mediaControl = document.querySelector('video');
+    if (navigator.mozGetUserMedia) {
+      mediaControl.mozSrcObject = stream;
+    } else {
+      mediaControl.srcObject = stream;
+      mediaControl.src = (window.URL || window.webkitURL).createObjectURL(stream);
+    }
+    theStream = stream;
+  }, function(err) {
+    alert('Error: ' + err);
+  });
+}
+
+function takePhoto() {
+  if (!('ImageCapture' in window)) {
+    alert('ImageCapture is not available');
+  }
+
+  var theImageCapturer = new ImageCapture(theStream.getVideoTracks()[0]);
+
+  theImageCapturer.takePhoto()
+    .then(blob => {
+      var theImageTag = document.getElementById("imageTag");
+      theImageTag.src = URL.createObjectURL(blob);
+    })
+    .catch(err => alert('Error: ' + err));
+}
+-->
+</script>
+
+
 <p>Batterij percentage: <span id="bat-stat">0</span></p>
 <p>Batterij aan het opladen: <span id="charge">0</span></p>
 
