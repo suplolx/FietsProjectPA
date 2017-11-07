@@ -11,13 +11,30 @@
   font-size:2em;
 }
 
+.navbar-desktop {
+    display:inline-flex;
+}
+
+.navbar-desktop a {
+    padding:0 10px;
+}
+
+.navbar-desktop a:hover {
+    color:floralwhite;
+    transition: color 1s ease-out;
+}
+
+.dropdown {
+    display:none;
+}
+
 .bedrijfs-info h3, .bedrijfs-info ul, .brand {
   text-align:left;
 }
 
 .form-wrapper {
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
+  grid-template-columns:repeat(3, 1fr);
   grid-gap:40px;
 }
 
@@ -30,7 +47,6 @@
 .items {
   background-color:#c9e6ff;
   color:#385e74;
-  height:54px;
   width:100%;
   margin-bottom:-20px;
   box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7)
@@ -42,14 +58,20 @@
   transition:background-color 1s ease-out;
 }
 
+.search-form{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    grid-gap:10px;
+}
+
 .select-row input[type="text"], .select-row input[type="submit"] {
-    width:19.69%;
+    width:100%;
     margin-top:20px;
     padding:0.3em;
 }
 
 .select-row input[type="date"] {
-    width:19.69%;
+    width:100%;
     margin-top:20px;
     padding:0.09em;
 }
@@ -135,9 +157,6 @@
     color:white;
 }
 
-.items i {
-    display:none;
-}
 
 /*
 .overschreden td {
@@ -151,10 +170,14 @@
 }
 
 .btn-group {
-    grid-column:1/2;
+    grid-column:2/3;
     width:100%;
 }
 
 .desktop {
     display:none;
+}
+
+.dropdown {
+    margin-top:10px;
 }

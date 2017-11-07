@@ -47,6 +47,12 @@
 
 
     <p>
+        {{ form.datum.label }}
+        {{ form.datum(type="date") }}
+    </p>
+
+    <p>
+      <label for="photo">Foto</label>
       <input style="display:block" type="file" accept="image/*" capture="user" name="photo">
     </p>
 

@@ -1,0 +1,83 @@
+<!doctype HTML>
+
+<html>
+
+<title>FietsFoetsie</title>
+<style>
+
+    * {
+        box-sizing:border-box;
+    }
+
+    body {
+        line-height:1;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h1{
+        text-align:center;
+    }
+
+    ul {
+        list-style:none;
+    }
+
+    .left {
+        float:left;
+    }
+
+    .right {
+        float:right;
+    }
+
+    .fiets-data {
+        margin:auto;
+    }
+
+    .signature {
+        color:white;
+        border-bottom:1px dashed black;
+    }
+
+</style>
+
+<body>
+
+<h1>FietsFoetsie</h1>
+</br>
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut urna sed massa posuere semper. Proin at iaculis lacus. In pretium libero neque. Ut nec iaculis lorem. Sed consequat, lacus vitae euismod interdum, quam mauris lobortis est, in tempor tortor velit a nisi. Nam quis consequat nulla, et elementum arcu. Mauris non ante sodales, pulvinar odio vel, tristique urna. Fusce diam libero, molestie a nibh in, consequat tristique enim. Vestibulum condimentum tempor neque at fermentum. Morbi egestas mauris lorem, in viverra dui ullamcorper id. Morbi non sollicitudin odio. Sed erat dolor, tristique dapibus fermentum eu, dignissim convallis sapien. Ut efficitur feugiat malesuada.
+</p>
+</br>
+<p>
+Aliquam tincidunt gravida dolor, sit amet pharetra neque. Morbi pulvinar tempus tristique. Duis et vestibulum ante. Nunc luctus magna nec nibh porta, vel sodales orci scelerisque. Sed rutrum est lacus, id ultricies quam convallis luctus. Quisque justo nibh, bibendum at auctor a, faucibus eu metus. In maximus ante tortor, ac porttitor lacus semper eget. Mauris tristique ultricies fringilla. Duis venenatis nibh et mi placerat, scelerisque maximus augue venenatis. Nullam quam justo, viverra non iaculis commodo, gravida in purus. In hac habitasse platea dictumst. Aenean quis vestibulum velit, ut semper leo. Proin luctus lorem et felis volutpat molestie non sed purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mattis sapien sed urna interdum, nec facilisis purus interdum. Aliquam vel urna a eros tincidunt lacinia non sit amet lacus.
+</p>
+
+</br>
+<div class="fiets-data">
+<h3>Gegevens fiets:</h3>
+
+<ul class="left">
+    <li><p>Nummer: <span>{{ r.Nummer }}</span></p></li>
+    <li><p>Frametype: <span>{{ r.FrameType }}</span></p></li>
+    <li><p>Framenummer: <span>{{ r.Framenummer }}</span></p></li>
+    <li><p>Datum registratie: <span>{{ r.Datum }}</span></p></li>
+</ul>
+
+<ul class="right">
+    <li><p>Merk: <span>{{ r.Merk }}</span></p></li>
+    <li><p>Kleur: <span>{{ r.Kleur }}</span></p></li>
+    <li><p>Graveerde postcode: <span>{{ r.Gegraveerde_postcode }}</span></p></li>
+    <li><p>Datum vandaag: <span>{{ t }}</span></p></li>
+</ul>
+
+</div>
+
+</br>
+</br>
+<p class="left">Handtekening eigenaar: <span class="signature">Loremfkjsfjlsdfldkgd</span></p>
+<p class="left">Handtekening medewerker: <span class="signature">Loremfkjsfjlsdfldkgd</span></p>
+
+</body>
+
+</html>

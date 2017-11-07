@@ -4,6 +4,7 @@ from sqlalchemy import desc
 from sqlalchemy.exc import IntegrityError
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import check_password_hash
+from flask_weasyprint import HTML, render_pdf
 from models import Fiets, User
 from forms import RegistratieForm, UserLogin, SearchForm
 from dateutil.relativedelta import relativedelta
@@ -156,7 +157,6 @@ def formulier():
 
 
 @app.route('/overzicht')
-@login_required
 def overzicht():
     '''Overzicht route met een tabel van alle fietsen in db
 
@@ -171,7 +171,6 @@ def overzicht():
 
 
 @app.route('/zoeken', methods=['GET', 'POST'])
-@login_required
 def zoeken():
     '''Zoeken route naar zoek pagina om specifieke zoek query's uit te voeren
 
@@ -189,7 +188,7 @@ def zoeken():
     form = SearchForm()
     if request.method == 'POST':
         kwargs = dict()
-        # query construtor met onbekend aantal args/kwargs
+        # query constructor met onbekend aantal args/kwargs
         for field in form:
             if len(field.data) >= 2:
                  kwargs.update({field.name:field.data})
@@ -244,7 +243,7 @@ def delete_fiets(id):
     # Foto verwijderen van server
     os.remove(IMG_PATH + fiets.Foto)
     flash('Fiets nummer {} is succesvol verwijderd!'.format(id))
-    return redirect(url_for('index'))
+    return redirect(url_for('overzicht'))
 
 
 @app.route('/edit_fiets/<int:id>', methods=['GET', 'POST'])
@@ -274,6 +273,7 @@ def edit_fiets(id):
     form.kleur.data = fiets.Kleur
     form.framenummer.data = fiets.Framenummer
     form.gravpostcode.data = fiets.Gegraveerde_postcode
+    form.datum.data = fiets.Datum
     form.opmerkingen.data = fiets.Opmerkingen
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -321,7 +321,6 @@ def edit_fiets(id):
 
 
 @app.route('/fiets/<int:id>', methods=['GET', 'POST'])
-@login_required
 def fiets(id):
     '''Fiets route met gedetaileerde informatie over opgevraagde fiets
 
@@ -348,6 +347,15 @@ def test_page():
 
     '''
     return render_template('testpage.html')
+
+
+@app.route('/to_pdf/<int:id>', methods=["POST", "GET"])
+@login_required
+def generate_pdf(id):
+    f = Fiets.query.filter_by(Nummer=id).first()
+    t = datetime.datetime.now().strftime("%Y-%m-%d")
+    html = render_template('pdf_formulier.html', r=f, t=t)
+    return render_pdf(HTML(string=html))
 
 
 @app.route('/logout')

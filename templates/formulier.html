@@ -22,17 +22,43 @@
 
     <p>
       {{ form.merk.label }}
-      {{ form.merk }}
+      {{ form.merk(list="merk-lijst", autofocus=true) }}
+      <datalist id="merk-lijst">
+          <option value="Gazelle">
+          <option value="Batavus">
+          <option value="Sparta">
+          <option value="Giant">
+          <option value="Twico">
+      </datalist>
     </p>
 
     <p>
       {{ form.frametype.label }}
-      {{ form.frametype }}
+      {{ form.frametype(list="frametype-lijst") }}
+      <datalist id="frametype-lijst">
+          <option value="Heren">
+          <option value="Dames">
+          <option value="Oma">
+          <option value="Mountainbike">
+          <option value="Kinder">
+      </datalist>
     </p>
 
     <p>
       {{ form.kleur.label }}
-      {{ form.kleur }}
+      {{ form.kleur(list="kleur-lijst") }}
+      <datalist id="kleur-lijst">
+          <option value="Zwart">
+          <option value="Wit">
+          <option value="Grijs">
+          <option value="Zilver">
+          <option value="Rood">
+          <option value="Geel">
+          <option value="Groen">
+          <option value="Oranje">
+          <option value="Blauw">
+          <option value="Paars">
+      </datalist>
     </p>
 
     <p>
@@ -100,10 +126,10 @@
 
             if ( (window.screen.orientation.type === 'portrait-primary') && (buttonState) ) {
                 screenBanner.style.display = 'block';
-                debugMsg.innerHTML = window.screen.orientation.type + " if block " + buttonState;
+                //debugMsg.innerHTML = window.screen.orientation.type + " if block " + buttonState;
             } else {
                 screenBanner.style.display = 'none';
-                debugMsg.innerHTML = window.screen.orientation.type + " else block " + buttonState;
+                //debugMsg.innerHTML = window.screen.orientation.type + " else block " + buttonState;
             }
         });
 

@@ -3,6 +3,13 @@
 {% block body %}
 
 
+<form method="POST" action="{{ url_for('generate_pdf', id=12) }}">
+    <button>Test</button>
+</form>
+
+
+
+<!--
 <p id="test"></p>
 <p id="hidden-test"></p>
 <button id="tgl-orient">Klik</button>
@@ -90,12 +97,15 @@ function takePhoto() {
     })
     .catch(err => alert('Error: ' + err));
 }
--->
-</script>
 
+</script>
+-->
 
 <p>Batterij percentage: <span id="bat-stat">0</span></p>
 <p>Batterij aan het opladen: <span id="charge">0</span></p>
+<div class="bat-icons">
+    <i id="bat-icon" class="fa fa-battery-empty" aria-hidden="true"></i>
+</div>
 
 <script>
 
@@ -110,5 +120,6 @@ function takePhoto() {
     })
 
 </script>
+
 
 {% endblock %}
