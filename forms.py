@@ -30,3 +30,15 @@ class SearchForm(Form):
     FrameType = TextField("FrameType")
     Kleur = TextField("Kleur")
     Datum = TextField("Datum")
+
+
+
+class TestForm(Form):
+    pdf_formulier = BooleanField("Pdf Formulier")
+    submitBtn = SubmitField("Submit")
+
+
+
+class DeleteForm(Form):
+    pdf_formulier = BooleanField("Opgehaald?")
+    delete_btn = SubmitField("Verwijder")

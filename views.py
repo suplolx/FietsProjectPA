@@ -5,8 +5,8 @@ from sqlalchemy.exc import IntegrityError
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import check_password_hash
 from flask_weasyprint import HTML, render_pdf
-from models import Fiets, User
-from forms import RegistratieForm, UserLogin, SearchForm
+from models import Fiets, User, Verwijderd
+from forms import RegistratieForm, UserLogin, SearchForm, DeleteForm
 from dateutil.relativedelta import relativedelta
 from PIL import Image
 from base64 import b64decode
@@ -206,7 +206,7 @@ def login():
         form (object): formulier met login velden
 
     Returns (POST):
-        Jinja-template: redirect index.html
+        Jinja-template: redirect naar index.html
 
     '''
 
@@ -228,7 +228,8 @@ def login():
 @app.route('/delete_fiets/<int:id>', methods=['POST'])
 @login_required
 def delete_fiets(id):
-    '''Verwijder fiets route alleen POST toegestaan
+    '''Verwijder fiets route alleen POST toegestaan. Voegt verwijderde fiets toe
+    aan "Verwijderd" table in db.
 
     Returns:
         Jinja-template: redirect naar index.html
@@ -238,10 +239,17 @@ def delete_fiets(id):
     '''
 
     fiets = Fiets.query.filter_by(Nummer=id).first()
+    verwijderd = Verwijderd(Nummer=fiets.Nummer, Merk=fiets.Merk, FrameType=fiets.FrameType,
+                            Kleur=fiets.Kleur, Framenummer=fiets.Framenummer, Gegraveerde_postcode=fiets.Gegraveerde_postcode,
+                            Opmerkingen=fiets.Opmerkingen, Datum_aangemeld=fiets.Datum, Datum_aangepast=fiets.Datum_aangepast,
+                            Datum_verwijderd=datetime.datetime.now().strftime("%Y-%m-%d"), auteur=current_user)
+
+    db.session.add(verwijderd)
     db.session.delete(fiets)
     db.session.commit()
     # Foto verwijderen van server
-    os.remove(IMG_PATH + fiets.Foto)
+    if fiets.Foto:
+        os.remove(IMG_PATH + fiets.Foto)
     flash('Fiets nummer {} is succesvol verwijderd!'.format(id))
     return redirect(url_for('overzicht'))
 
@@ -332,11 +340,12 @@ def fiets(id):
         id (int): id van de fiets verkregen door form action
 
     '''
+
     f = Fiets.query.filter_by(Nummer=id).first()
     return render_template('fiets.html', result=f)
 
 
-@app.route('/test')
+@app.route('/test', methods=["GET", "POST"])
 @login_required
 def test_page():
     '''Test pagina route voor return value tests
@@ -346,13 +355,28 @@ def test_page():
         gevarieerde data: -
 
     '''
+
+    # form = TestForm()
+    if request.method == "POST":
+        result = request.form['pdf-formulier']
+        return "<p> {} </p>".format(result)
+
     return render_template('testpage.html')
+
 
 
 @app.route('/to_pdf/<int:id>', methods=["POST", "GET"])
 @login_required
 def generate_pdf(id):
+    '''Pdf generatie route. Genereert een pdf met de gegevens van de fiets.
+
+    Returns:
+        pdf: opent een pdf in de browser die geprint kan worden
+
+    '''
+
     f = Fiets.query.filter_by(Nummer=id).first()
+    # Datum van nu
     t = datetime.datetime.now().strftime("%Y-%m-%d")
     html = render_template('pdf_formulier.html', r=f, t=t)
     return render_pdf(HTML(string=html))

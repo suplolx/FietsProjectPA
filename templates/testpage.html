@@ -2,12 +2,18 @@
 
 {% block body %}
 
-
-<form method="POST" action="{{ url_for('generate_pdf', id=12) }}">
-    <button>Test</button>
+<form>
+    <label>PDF</label>
+    <input id="pdf-formulier" name="pdf-formulier" type="checkbox">
 </form>
 
+<form method="POST">
 
+  <button type="submit" id="submit-btn" name="submit-btn">Submit</button>
+
+</form>
+
+<p>{{result}}</p>
 
 <!--
 <p id="test"></p>

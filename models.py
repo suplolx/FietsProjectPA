@@ -20,6 +20,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(80))
     authenticated = db.Column(db.SmallInteger, default=False)
     fiets_aangemeld = db.relationship('Fiets', backref='auteur', lazy='dynamic')
+    fiets_verwijderd = db.relationship('Verwijderd', backref='auteur', lazy='dynamic')
 
 
     def is_active(self):
@@ -37,7 +38,7 @@ class User(UserMixin, db.Model):
 
 
 class Fiets(db.Model):
-    __tablname__ = "fiets"
+    __tablename__ = "fiets"
     __table_args__ = {'extend_existing': True}
     Id = db.Column(db.Integer, primary_key=True)
     Nummer = db.Column(db.Integer, unique=True)
@@ -53,6 +54,23 @@ class Fiets(db.Model):
     Foto = db.Column(db.String(200))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+
+
+class Verwijderd(db.Model):
+    __tablename__ = "verwijderd"
+    __table_args__ = {'extend_existing': True}
+    id = db.Column(db.Integer, primary_key=True)
+    Nummer = db.Column(db.Integer, unique=True)
+    Merk = db.Column(db.String(15))
+    FrameType = db.Column(db.String(15))
+    Kleur = db.Column(db.String(15))
+    Framenummer = db.Column(db.String(50), unique=True)
+    Gegraveerde_postcode = db.Column(db.String(30))
+    Opmerkingen = db.Column(db.String(200))
+    Datum_aangemeld = db.Column(db.Date())
+    Datum_aangepast = db.Column(db.Date())
+    Datum_verwijderd = db.Column(db.Date())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
 if __name__ == '__main__':
