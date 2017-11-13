@@ -233,8 +233,8 @@ def login():
 @app.route('/delete_fiets/<int:id>', methods=['POST'])
 @login_required
 def delete_fiets(id):
-    '''Verwijder fiets route alleen POST toegestaan. Voegt verwijderde fiets toe
-    aan "Verwijderd" table in db.
+    '''Verwijder fiets route. Voegt verwijderde fiets toe aan "Verwijderd" table
+    in db.
 
     Returns:
         Jinja-template: redirect naar index.html

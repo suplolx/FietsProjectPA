@@ -5,7 +5,7 @@
 */
 
 * {
-  box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 .bat-icons {
@@ -13,10 +13,10 @@
 }
 
 body {
-  background:#92bde7;
-  color:#385e74;
-  line-height:1.6;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:#92bde7;
+    color:#385e74;
+    line-height:1.6;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .img {
@@ -25,10 +25,10 @@ body {
 }
 
 .container {
-  max-width:1170px;
-  margin-left:auto;
-  margin-right:auto;
-  padding:1em;
+    max-width:1170px;
+    margin-left:auto;
+    margin-right:auto;
+    padding:1em;
 }
 
 .header-wrapper {
@@ -49,12 +49,12 @@ body {
 }
 
 .navbar a {
-  text-decoration:none;
-  color:#385e74;
+    text-decoration:none;
+    color:#385e74;
 }
 
 .navbar p {
-  margin-bottom:-5px;
+    margin-bottom:-5px;
 }
 
 .dropdown {
@@ -93,24 +93,24 @@ body {
 }
 
 ul {
-  list-style:none;
-  padding:0;
+    list-style:none;
+    padding:0;
 }
 
 .brand {
-  font-size:38px;
-  text-align:center;
-  margin:0;
+    font-size:38px;
+    text-align:center;
+    margin:0;
 }
 
 .brand span{
-  text-align:center;
-  color:#fff;
+    text-align:center;
+    color:#fff;
 }
 
 .header a {
-  text-decoration:none;
-  color:inherit;
+    text-decoration:none;
+    color:inherit;
 }
 
 img {
@@ -118,29 +118,28 @@ img {
     width:224px;
 }
 
-
 .header a, .header a:visited, .header a:hover, .header a:active {
-  color: inherit;
+    color: inherit;
 }
 
 .wrapper {
-  box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
-  margin-top:15px;
+    box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
+    margin-top:15px;
 }
 
 .wrapper > * {
-  padding:1em;
+    padding:1em;
 }
 
 .form-wrapper {
-  display:grid;
-  grid-template-columns:100%;
-  grid-gap:10px;
+    display:grid;
+    grid-template-columns:100%;
+    grid-gap:10px;
 }
 
 .form-wrapper a {
-  text-decoration:none;
-  color:inherit;
+    text-decoration:none;
+    color:inherit;
 }
 
 
@@ -154,38 +153,38 @@ img {
 }
 
 .items {
-  background-color:#c9e6ff;
-  color:#385e74;
-  text-align: center;
-  height:200px;
-  width:100%;
-  box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
-  cursor:pointer;
-  user-select:none;
+    background-color:#c9e6ff;
+    color:#385e74;
+    text-align: center;
+    height:200px;
+    width:100%;
+    box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
+    cursor:pointer;
+    user-select:none;
 }
 
 .items i {
-  font-size: 80px;
+    font-size: 80px;
 }
 
 .items:hover, .items:focus {
-  background-color:#6d8dad;
-  color:#f9feff;
-  transition:background-color 1s ease-out;
-  outline:none
+    background-color:#6d8dad;
+    color:#f9feff;
+    transition:background-color 1s ease-out;
+    outline:none
 }
 
 .overzicht {
-  background:#f9feff;
-  border-collapse: collapse;
-  width:100%;
-  box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
-  margin-top:15px;
+    background:#f9feff;
+    border-collapse: collapse;
+    width:100%;
+    box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
+    margin-top:15px;
 }
 
 .overzicht th, .overzicht td {
-  text-align:center;
-  padding:0.5em 0;
+    text-align:center;
+    padding:0.5em 0;
 }
 
 .overzicht tr {
@@ -193,22 +192,22 @@ img {
 }
 
 .overzicht tr:nth-child(even){
-  background-color:#c9e6ff;
+    background-color:#c9e6ff;
 }
 
 .overzicht tr:hover {
-  background-color: #6d8dad;
-  color:white;
+    background-color: #6d8dad;
+    color:white;
 }
 
 .overzicht th {
-  border-bottom:2px solid #c9e6ff;
-  background-color:#6d8dad;
-  color:#f9feff;
+    border-bottom:2px solid #c9e6ff;
+    background-color:#6d8dad;
+    color:#f9feff;
 }
 
 .overzicht td {
-  border-bottom:1px solid #c9e6ff;
+    border-bottom:1px solid #c9e6ff;
 }
 
 .screen-banner {
@@ -269,43 +268,43 @@ img {
 }
 
 .bedrijfs-info {
-  background:#c9e6ff;
+    background:#c9e6ff;
 }
 
 .bedrijfs-info h3, .bedrijfs-info ul {
-  text-align:center;
-  margin:0 0 1rem 0;
+    text-align:center;
+    margin:0 0 1rem 0;
 }
 
 .registratie {
-  background:#f9feff;
+    background:#f9feff;
 }
 
 /*formulier*/
 
 .registratie form {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  grid-gap:20px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-gap:20px;
 
 }
 
 .registratie form label {
-  display:block;
+    display:block;
 }
 
 .registratie form p {
-  margin:0;
+    margin:0;
 }
 
 .registratie form .full {
-  grid-column:1/3;
+    grid-column:1/3;
 }
 
 .registratie form button, .registratie form input, .registratie form textarea {
-  width:100%;
-  padding:1em;
-  border:1px solid #c9e6ff;
+    width:100%;
+    padding:1em;
+    border:1px solid #c9e6ff;
 }
 
 .registratie form input[type="file"] {
@@ -352,56 +351,56 @@ img {
 }
 
 #formBtn {
-  background:#c9e6ff;
-  border:0;
-  text-transform:uppercase;
-  cursor:pointer;
+    background:#c9e6ff;
+    border:0;
+    text-transform:uppercase;
+    cursor:pointer;
 }
 
 #formBtn:hover, #formBtn:focus {
-  background:#92bde7;
-  color:#fff;
-  outline:0;
-  transition:background-color 1s ease-out;
+    background:#92bde7;
+    color:#fff;
+    outline:0;
+    transition:background-color 1s ease-out;
 }
 
 .registratie span {
-  font-size:12px;
+    font-size:12px;
 }
 
 /*login formulier*/
 
 .login-form {
-  background:#f9feff;
-  padding:0 10px 0 5px;
+    background:#f9feff;
+    padding:0 10px 0 5px;
 }
 
 
 .login-form form p {
-  margin:0;
-  padding-left:5px;
+    margin:0;
+    padding-left:5px;
 
 }
 
 .login-form form button, .login-form form input, .login-form form textarea {
-  width:100%;
-  padding:1em;
-  border:1px solid #c9e6ff;
+    width:100%;
+    padding:1em;
+    border:1px solid #c9e6ff;
 }
 
 #loginBtn {
-  background:#c9e6ff;
-  border:0;
-  text-transform:uppercase;
-  cursor:pointer;
-  margin:15px 0;
+    background:#c9e6ff;
+    border:0;
+    text-transform:uppercase;
+    cursor:pointer;
+    margin:15px 0;
 }
 
 #loginBtn:hover, #loginBtn:focus {
-  background:#92bde7;
-  color:#fff;
-  outline:0;
-  transition:background-color 1s ease-out;
+    background:#92bde7;
+    color:#fff;
+    outline:0;
+    transition:background-color 1s ease-out;
 }
 
 #onthoudme {
@@ -438,31 +437,31 @@ img {
 }
 
 .login-form span {
-  font-size:12px;
+    font-size:12px;
 }
 
 .informatie {
-  background-color:#f4f4f4;
-  color:#6d8dad;
-  text-align:center;
-  font-size:20px;
-  box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
+    background-color:#f4f4f4;
+    color:#6d8dad;
+    text-align:center;
+    font-size:20px;
+    box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
 }
 
 .succes {
-  background-color:palegreen;
-  color:floralwhite;
-  text-align:center;
-  font-size:20px;
-  box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
+    background-color:palegreen;
+    color:floralwhite;
+    text-align:center;
+    font-size:20px;
+    box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
 }
 
 .error {
-  background-color:salmon;
-  color:floralwhite;
-  text-align:center;
-  font-size:20px;
-  box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
+    background-color:salmon;
+    color:floralwhite;
+    text-align:center;
+    font-size:20px;
+    box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
 }
 
 .select-row input[type="text"] {
@@ -477,13 +476,13 @@ img {
     margin-top:15px;
 }
 
- .select-row input[type="date"] {
+.select-row input[type="date"] {
     width:49%;
     margin-top:20px;
     padding:0.09em;
- }
+}
 
- footer {
+footer {
      font-size:10px;
      color:black;
      text-align:center;
@@ -491,103 +490,103 @@ img {
 
  /* modal */
 
- .modal {
-     display:none;
-     position:fixed;
-     z-index:1;
-     left:0;
-     top:0;
-     height:100%;
-     width:100%;
-     overflow:auto;
-     background-color:rgba(0, 0, 0, 0.7);
- }
+.modal {
+    display:none;
+    position:fixed;
+    z-index:1;
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    overflow:auto;
+    background-color:rgba(0, 0, 0, 0.7);
+}
 
- .modal-header {
+.modal-header {
     background-color:lightcoral;
     padding:4px 15px;
     color:#fff;
- }
+}
 
- .modal-footer {
-     background-color:lightcoral;
-     padding:1em 15px;
-     display:grid;
-     grid-template-columns:1fr 1fr 1fr;
-     grid-gap:10px;
- }
+.modal-footer {
+    background-color:lightcoral;
+    padding:1em 15px;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-gap:10px;
+}
 
- .modal-body {
-     padding:4px 15px;
-     background-color:floralwhite;
- }
+.modal-body {
+    padding:4px 15px;
+    background-color:floralwhite;
+}
 
- .modal-header h2 .modal-footer{
-     margin:0;
- }
+.modal-header h2 .modal-footer{
+    margin:0;
+}
 
- .modal-content {
-     background-color:#f4f4f4;
-     margin:20% auto;
-     width:80%;
-     box-shadow:0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
- }
+.modal-content {
+    background-color:#f4f4f4;
+    margin:20% auto;
+    width:80%;
+    box-shadow:0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
+}
 
- .modal-list-wrapper {
-     display:grid;
-     grid-template-columns:1fr 1fr;
-     grid-gap:10px;
-     padding:10px 20px;
- }
+.modal-list-wrapper {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-gap:10px;
+    padding:10px 20px;
+}
 
- #modal-list-items {
+#modal-list-items {
     font-weight:bold;
- }
+}
 
- #modal-list {
+#modal-list {
     overflow:scroll;
- }
+}
 
- .closeBtn {
-     color:#fff;
-     float:right;
-     font-size:30px;
- }
+.closeBtn {
+    color:#fff;
+    float:right;
+    font-size:30px;
+}
 
- .closeBtn:hover, .closeBtn:focus{
-     color:#000;
-     text-decoration:none;
-     cursor:pointer;
- }
+.closeBtn:hover, .closeBtn:focus{
+    color:#000;
+    text-decoration:none;
+    cursor:pointer;
+}
 
- #delete-btn, #print-btn, #cancel-btn {
-     border:1px solid #385e74;
-     padding:0.5em;
-     width:100%;
-     height:100%;
-     background:floralwhite;
-     border-radius:5px;
-     color:#385e74;
-     cursor:pointer;
- }
+#delete-btn, #print-btn, #cancel-btn {
+    border:1px solid #385e74;
+    padding:0.5em;
+    width:100%;
+    height:100%;
+    background:floralwhite;
+    border-radius:5px;
+    color:#385e74;
+    cursor:pointer;
+}
 
- #delete-btn:hover {
-     background:brown;
-     color:floralwhite;
-     transition:background 1s ease-out;
- }
+#delete-btn:hover {
+    background:brown;
+    color:floralwhite;
+    transition:background 1s ease-out;
+}
 
- #print-btn:hover {
-     background:palegreen;
-     color:floralwhite;
-     transition:background 1s ease-out;
- }
+#print-btn:hover {
+    background:palegreen;
+    color:floralwhite;
+    transition:background 1s ease-out;
+}
 
- #cancel-btn:hover {
-     background:#385e74;
-     color:floralwhite;
-     transition:background 1s ease-out;
- }
+#cancel-btn:hover {
+    background:#385e74;
+    color:floralwhite;
+    transition:background 1s ease-out;
+}
 
 .items i {
     display:block;
@@ -611,28 +610,28 @@ img {
 }
 
 .fiets-item table {
-  border-collapse: collapse;
-  width:100%;
-  height:100%;
+    border-collapse: collapse;
+    width:100%;
+    height:100%;
 }
 
 .fiets-item th, td {
-  text-align:center;
+    text-align:center;
 }
 
 
 .fiets-item tr:hover {
-  background-color: #6d8dad;
+    background-color: #6d8dad;
 }
 
 .fiets-item th {
-  border-bottom:2px solid #c9e6ff;
-  background-color:#f9feff;
-  color:#6d8dad;
+    border-bottom:2px solid #c9e6ff;
+    background-color:#f9feff;
+    color:#6d8dad;
 }
 
 .fiets-item td {
-  border-bottom:1px solid #c9e6ff;
+    border-bottom:1px solid #c9e6ff;
 }
 
 
@@ -719,7 +718,6 @@ img {
 
 }
 
-
 #back {
     font-family:FontAwesome;
     border:none;
@@ -736,7 +734,6 @@ img {
     transition:color 0.5s ease-out;
     color:white;
 }
-
 
 .no-connection {
     display:none;
