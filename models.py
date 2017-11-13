@@ -70,6 +70,7 @@ class Verwijderd(db.Model):
     Datum_aangemeld = db.Column(db.Date())
     Datum_aangepast = db.Column(db.Date())
     Datum_verwijderd = db.Column(db.Date())
+    Foto = db.Column(db.String(200))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 

@@ -2,6 +2,39 @@
 
 {% block body %}
 
+{% if deleted|length > 0 %}
+<h2>Vandaag verwijderd</h2>
+
+<table class="overzicht">
+  <tr>
+    <th>Nummer</th>
+    <th>Merk</th>
+    <th>Frametype</th>
+    <th>Kleur</th>
+    <th class="mobile">Framenummer</th>
+    <th class="mobile">Datum</th>
+    <th style="display:none" class="mobile">Toegevoegd door</th>
+    <th style="display:none" class="mobile">Opmerkingen</th>
+  </tr>
+
+  {% for d in deleted %}
+  <tr onclick="toggleBanner()" ondblclick="window.location='{{url_for('ongedaan_maken', id=d.Nummer)}}';" class="table-data">
+    <td>{{ d.Nummer }}</td>
+    <td>{{ d.Merk }}</td>
+    <td>{{ d.FrameType }}</td>
+    <td>{{ d.Kleur }}</td>
+    <td class="mobile">{{ d.Framenummer }}</td>
+    <td class="mobile">{{ d.Datum_aangemeld }}</td>
+    <td style="display:none" class="mobile">{{ d.auteur.username }}</td>
+    <td style="display:none" class="mobile">{{ d.Opmerkingen }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<h2>Overzicht</h2>
+{% endif %}
+
+
 <table class="overzicht">
   <tr>
     <th>Nummer</th>
@@ -28,5 +61,23 @@
   {% endfor %}
 </table>
 
+<div id="screen-banner" class="screen-banner">
+    <p id="close-btn">&times;</p>
+    <p id="err-msg">Dubbel klikken om verwijdering ongedaan te maken</p>
+</div>
+
+<script>
+    var screenBanner = document.getElementById('screen-banner');
+    var closeBtn = document.getElementById('close-btn');
+
+    function toggleBanner() {
+        screenBanner.style.display = "block";
+    }
+
+    closeBtn.addEventListener('click', function() {
+        screenBanner.style.display = "none";
+    });
+
+</script>
 
 {% endblock %}

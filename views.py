@@ -91,9 +91,13 @@ def formulier():
 
     form = RegistratieForm()
     # check of er al een fiets in db staat voor auto increment van "form.fietsnummer" field
-    recent_nummer = Fiets.query.order_by(desc(Fiets.Nummer)).first()
-    if recent_nummer:
-        form.fietsnummer.data = recent_nummer.Nummer + 1
+    n = Fiets.query.order_by(desc(Fiets.Nummer)).first()
+    n_2 = Verwijderd.query.order_by(desc(Verwijderd.Nummer)).first()
+
+    if n.Nummer < n_2.Nummer:
+        form.fietsnummer.data = n_2.Nummer + 1
+    elif n:
+        form.fietsnummer.data = n.Nummer + 1
     else:
         form.fietsnummer.data = 1
 
@@ -145,12 +149,12 @@ def formulier():
                     db.session.add(fiets)
                     db.session.commit()
 
-                flash("Fiets Nummer {} is toegevoegd!".format(form.fietsnummer.data))
+                flash("Fiets Nummer {} is toegevoegd!".format(form.fietsnummer.data), "succes")
                 return redirect(url_for('formulier'))
 
             except IntegrityError:
                 db.session.rollback()
-                flash('Er is al een fiets met dat nummer!')
+                flash('Er is al een fiets met dat nummer!', 'error')
                 return redirect(url_for('formulier'))
 
     return render_template('formulier.html', form=form, title="Registratie")
@@ -167,7 +171,8 @@ def overzicht():
     '''
 
     result = Fiets.query.order_by(desc(Fiets.Nummer)).all()
-    return render_template('overzicht.html', result=result, title="Overzicht")
+    deleted = [d for d in Verwijderd.query.order_by(desc(Verwijderd.Nummer)).limit(5).all() if datetime.date.today() == d.Datum_verwijderd]
+    return render_template('overzicht.html', result=result, deleted=deleted, title="Overzicht")
 
 
 @app.route('/zoeken', methods=['GET', 'POST'])
@@ -217,9 +222,9 @@ def login():
             # check password hash in db met gehashte password van password form field
             if check_password_hash(user.password, form.wachtwoord.data):
                 login_user(user, remember=form.onthoudme.data)
-                flash('Welkom {}!'.format(user.username.capitalize()))
+                flash('Welkom {}!'.format(user.username.capitalize()), 'informatie')
                 return redirect(url_for('index'))
-        flash('gebruikersnaam of wachtwoord onjuist!')
+        flash('gebruikersnaam of wachtwoord onjuist!', 'error')
         return redirect(url_for('login'))
 
     return render_template('login.html', form=form, title="Login")
@@ -242,16 +247,44 @@ def delete_fiets(id):
     verwijderd = Verwijderd(Nummer=fiets.Nummer, Merk=fiets.Merk, FrameType=fiets.FrameType,
                             Kleur=fiets.Kleur, Framenummer=fiets.Framenummer, Gegraveerde_postcode=fiets.Gegraveerde_postcode,
                             Opmerkingen=fiets.Opmerkingen, Datum_aangemeld=fiets.Datum, Datum_aangepast=fiets.Datum_aangepast,
-                            Datum_verwijderd=datetime.datetime.now().strftime("%Y-%m-%d"), auteur=current_user)
+                            Datum_verwijderd=datetime.datetime.now().strftime("%Y-%m-%d"), auteur=current_user, Foto=fiets.Foto)
 
     db.session.add(verwijderd)
     db.session.delete(fiets)
     db.session.commit()
     # Foto verwijderen van server
-    if fiets.Foto:
-        os.remove(IMG_PATH + fiets.Foto)
-    flash('Fiets nummer {} is succesvol verwijderd!'.format(id))
+    # if fiets.Foto:
+    #   os.remove(IMG_PATH + fiets.Foto)
+    flash('Fiets nummer {} is succesvol verwijderd!'.format(id), 'succes')
     return redirect(url_for('overzicht'))
+
+
+@app.route('/undo/<int:id>', methods=['GET', 'POST'])
+@login_required
+def ongedaan_maken(id):
+    vandaag = datetime.date.today()
+    deleted = Verwijderd.query.filter_by(Nummer=id).first()
+    if deleted.Datum_verwijderd == vandaag:
+        try:
+            fiets = Fiets(Nummer=deleted.Nummer, Merk=deleted.Merk, FrameType=deleted.FrameType,
+                          Kleur=deleted.Kleur, auteur=current_user, Framenummer=deleted.Framenummer,
+                          Gegraveerde_postcode=deleted.Gegraveerde_postcode, Opmerkingen=deleted.Opmerkingen,
+                          Datum=deleted.Datum_aangemeld, Datum_aangepast=deleted.Datum_aangepast, Foto=deleted.Foto)
+
+            db.session.add(fiets)
+            db.session.delete(deleted)
+            db.session.commit()
+            flash("Actie succesvol ongedaan gemaakt!", "succes")
+            return redirect(url_for('overzicht'))
+
+        except IntegrityError:
+            db.session.rollback()
+            flash('Er is al een fiets met dat nummer!', 'error')
+            return redirect(url_for('formulier'))
+
+    else:
+        flash("Deze fiets is al langer dan een dag verwijderd.", "error")
+        return redirect(url_for('overzicht'))
 
 
 @app.route('/edit_fiets/<int:id>', methods=['GET', 'POST'])
@@ -322,7 +355,7 @@ def edit_fiets(id):
                 new_fiets = Fiets.query.filter_by(Nummer=id).update(update_dict)
                 db.session.commit()
 
-            flash('Fiets nummer {} aangepast!'.format(id))
+            flash('Fiets nummer {} aangepast!'.format(id), 'succes')
             return redirect(url_for('overzicht'))
 
     return render_template('edit.html', form=form)
@@ -362,7 +395,6 @@ def test_page():
         return "<p> {} </p>".format(result)
 
     return render_template('testpage.html')
-
 
 
 @app.route('/to_pdf/<int:id>', methods=["POST", "GET"])

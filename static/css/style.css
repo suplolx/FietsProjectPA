@@ -211,6 +211,23 @@ img {
   border-bottom:1px solid #c9e6ff;
 }
 
+.screen-banner {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    color:white;
+    background-color:rgba(105, 105, 105, 0.96);
+    padding:1em;
+    text-align:center;
+    z-index:1;
+    display:none;
+    animation-name:toggleBanner;
+    animation-duration:0.5s;
+    width:95%;
+    margin:auto;
+}
+
 #submit-btn {
     font-family:FontAwesome;
     background-color:white;
@@ -424,9 +441,25 @@ img {
   font-size:12px;
 }
 
-.flask-flash {
+.informatie {
   background-color:#f4f4f4;
   color:#6d8dad;
+  text-align:center;
+  font-size:20px;
+  box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
+}
+
+.succes {
+  background-color:palegreen;
+  color:floralwhite;
+  text-align:center;
+  font-size:20px;
+  box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
+}
+
+.error {
+  background-color:salmon;
+  color:floralwhite;
   text-align:center;
   font-size:20px;
   box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
@@ -767,4 +800,9 @@ video {
 
 .desktop {
     display:block;
+}
+
+@keyframes toggleBanner{
+    0% {top:-100%;}
+    100% {top:0;}
 }

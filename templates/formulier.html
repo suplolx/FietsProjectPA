@@ -86,16 +86,25 @@
     </div>
 
     <div class="toggle-btns">
-        <i id="camera-toggle" class="fa fa-camera" aria-hidden="true"></i>
+        <i id="camera-toggle" class="fa fa-camera" aria-hidden="true" onclick="getStream()"></i>
         <i id="file-upload" class="fa fa-folder-open" aria-hidden="true"></i>
     </div>
 
     <p id="debug-msg"></p>
 
     <div id="picture-capture" class="picture-capture full">
-        <video class="full" style="width:100%;" id="player" controls autoplay></video>
+        <!--
+
+        <p><video autoplay style="width:100%;" class="full" onclick="takePhoto()"></video></p>
+        <button type="button" id="capture" class="full" onclick="takePhoto()">Maak foto</button>
+        <p><img id="imageTag" style="width:100%; height:360px" class="full"></p>
+        -->
+
+
+        <video autoplay class="full" style="width:100%;" id="player"></video>
         <button type="button" id="capture" class="full">Maak foto</button>
         <canvas class="full" id="canvas"></canvas>
+
     </div>
 
     <p class="full">
@@ -117,6 +126,7 @@
         const debugMsg = document.getElementById("debug-msg");
         const errMsg = document.getElementById("err-msg");
         const closeBtn = document.getElementById("close-btn");
+        var mediaControl = document.querySelector('video');
         var isCamHidden = true;
         var isFileHidden = true;
         var buttonState = false;
@@ -132,6 +142,7 @@
                 //debugMsg.innerHTML = window.screen.orientation.type + " else block " + buttonState;
             }
         });
+
 
         cameraTgl.addEventListener('click', function() {
 
@@ -150,6 +161,10 @@
 
                 pictureCap.style.display = 'block';
                 isCamHidden = false;
+
+
+
+
 
                 const constraints = {
                     audio: false,
@@ -178,6 +193,7 @@
 
                 })
 
+
             } else {
 
                 player.srcObject.getVideoTracks().forEach(track => track.stop());
@@ -187,6 +203,88 @@
                 buttonState = false;
             }
         })
+
+        /*
+        function getUserMedia(options, successCallback, failureCallback) {
+          if (isCamHidden) {
+            buttonState = true;
+            if (window.matchMedia("(orientation: portrait)").matches) {
+                screenBanner.style.display = 'block';
+
+            } else if (window.screen.width >= 700) {
+                screenBanner.style.display = 'block';
+
+            } else {
+                screenBanner.style.display = 'none';
+            }
+
+            pictureCap.style.display = 'block';
+            isCamHidden = false;
+
+            } else {
+
+                //mediaControl.srcObject.getVideoTracks().forEach(track => track.stop());
+                pictureCap.style.display = 'none';
+                screenBanner.style.display = 'none';
+                isCamHidden = true;
+                buttonState = false;
+            }
+
+          var api = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia || navigator.msGetUserMedia;
+          if (api) {
+            return api.bind(navigator)(options, successCallback, failureCallback);
+          }
+          alert('User Media API not supported.');
+        }
+
+
+        var theStream;
+
+        function getStream() {
+          const constraints = {
+                            audio: false,
+                            video: {
+                                facingMode: { exact: "environment" },
+                                width: 1280,
+                                height: 720
+                            }
+                        };
+
+          getUserMedia(constraints, function(stream) {
+            var mediaControl = document.querySelector('video');
+            if (navigator.mozGetUserMedia) {
+              mediaControl.mozSrcObject = stream;
+            } else {
+              mediaControl.srcObject = stream;
+              mediaControl.src = (window.URL || window.webkitURL).createObjectURL(stream);
+            }
+            theStream = stream;
+          }, function(err) {
+            alert('Error: ' + err);
+          });
+        }
+
+        function takePhoto() {
+          if (!('ImageCapture' in window)) {
+            alert('ImageCapture is not available');
+          }
+
+          var theImageCapturer = new ImageCapture(theStream.getVideoTracks()[0]);
+
+
+          theImageCapturer.takePhoto()
+            .then(blob => {
+              var theImageTag = document.getElementById("imageTag");
+              var a = new FileReader();
+              theImageTag.src = URL.createObjectURL(blob);
+              //imgData.value = theImageTag.src
+              debugMsg.innerHTML = a.readAsDataURL(blob)
+            })
+            .catch(err => alert('Error: ' + err));
+
+        }
+        */
 
         fileUpl.addEventListener('click', function() {
 
@@ -216,6 +314,7 @@
             player.srcObject.getVideoTracks().forEach(track => track.stop());
             imgData.value = canvas.toDataURL();
         });
+
 
         closeBtn.addEventListener('click', function() {
             screenBanner.style.display = "none";
