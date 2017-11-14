@@ -2,6 +2,32 @@
 
 {% block body %}
 
+<p style="text-align:center" id="right"></p>
+<p style="text-align:center" id="left"></p>
+<p style="text-align:center" id="graden"></p>
+
+<img style="height:auto; width:100%;"src="{{ url_for('static', filename='img/Compass-Transparent.png') }}" id="img-logo"/>
+
+<script>
+    window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+
+
+    function deviceOrientationHandler(e) {
+        var tiltLR = e.gamma;
+        var tiltFB = e.beta;
+        var dir = e.alpha;
+        var logo = document.getElementById('img-logo');
+
+        document.getElementById('left').innerHTML = Math.round(tiltLR);
+        document.getElementById('right').innerHTML = Math.round(tiltFB);
+        document.getElementById('graden').innerHTML = Math.round(dir);
+
+        logo.style.transform = "rotate(" + dir + "deg)";
+    }
+
+
+
+</script>
 
 <!--
 
@@ -36,7 +62,7 @@
     })
 
 </script>
--->
+
 
 
 <p><button class="btn btn-lg btn-primary" onclick="getStream()">Grab video</button></p>

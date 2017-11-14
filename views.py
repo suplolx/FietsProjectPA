@@ -6,7 +6,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from werkzeug.security import check_password_hash
 from flask_weasyprint import HTML, render_pdf
 from models import Fiets, User, Verwijderd
-from forms import RegistratieForm, UserLogin, SearchForm, DeleteForm
+from forms import RegistratieForm, UserLogin, SearchForm
 from dateutil.relativedelta import relativedelta
 from PIL import Image
 from base64 import b64decode
@@ -200,6 +200,34 @@ def zoeken():
         query_ = Fiets.query.filter_by(**kwargs).all()
         return render_template('zoeken.html', title="Zoeken", form=form, result=query_)
     return render_template('zoeken.html', title="Zoeken", form=form)
+
+
+@app.route('/verwijderd', methods=['GET', 'POST'])
+def verwijderd():
+    '''Verwijderd route naar zoek pagina om specifieke zoek query's uit te voeren
+    naar alle verwijderde fietsen.
+
+    Returns (GET):
+        Jinja-template: zoeken.html
+        form (object): zoek velden om query's in te voeren
+
+    Returns (POST):
+        Jinja-template: zoeken.html
+        form (object): zoek velden om query's in te voeren
+        result (object): SQL-alchemy query samengesteld door zoek velden
+
+    '''
+
+    form = SearchForm()
+    if request.method == 'POST':
+        kwargs = dict()
+        # query constructor met onbekend aantal args/kwargs
+        for field in form:
+            if len(field.data) >= 2:
+                 kwargs.update({field.name:field.data})
+        query_ = Verwijderd.query.filter_by(**kwargs).all()
+        return render_template('verwijderd.html', title="Verwijderd", form=form, result=query_)
+    return render_template('verwijderd.html', title="Verwijderd", form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])

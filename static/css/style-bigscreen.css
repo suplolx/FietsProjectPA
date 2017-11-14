@@ -58,6 +58,13 @@
   transition:background-color 1s ease-out;
 }
 
+.sub-items {
+    margin:0;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-gap:25px;
+}
+
 .search-form{
     display:grid;
     grid-template-columns:repeat(5, 1fr);
@@ -166,7 +173,7 @@
 
 .modal-content {
     margin:10% auto;
-    width:378px;
+    width:650px;
 }
 
 .btn-group {
@@ -180,4 +187,9 @@
 
 .dropdown {
     margin-top:10px;
+}
+
+.cookie-banner {
+    display:none;
+    grid-template-columns:3fr 1fr;
 }

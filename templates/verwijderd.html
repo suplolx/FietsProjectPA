@@ -1,0 +1,39 @@
+{% extends "header.html" %}
+
+{% block body %}
+<div class="select-row">
+    <form class="search-form" method="POST">
+        {{ form.Merk(placeholder="merk") }}
+        {{ form.FrameType(placeholder="frametype") }}
+        {{ form.Kleur(placeholder="kleur") }}
+        {{ form.Datum(type="date") }}
+        <input type="submit" value="Zoeken">
+    </form>
+</div>
+<table class="overzicht">
+  <tr>
+    <th>Nummer</th>
+    <th>Merk</th>
+    <th>Frametype</th>
+    <th>Kleur</th>
+    <th class="mobile">Framenummer</th>
+    <th class="mobile">Datum</th>
+    <th style="display:none" class="mobile">Toegevoegd door</th>
+    <th style="display:none" class="mobile">Opmerkingen</th>
+  </tr>
+
+  {% for r in result %}
+  <tr onclick="window.location='{{url_for('fiets', id=r.Nummer)}}';" class="table-data">
+    <td>{{ r.Nummer }}</td>
+    <td>{{ r.Merk }}</td>
+    <td>{{ r.FrameType }}</td>
+    <td>{{ r.Kleur }}</td>
+    <td class="mobile">{{ r.Framenummer }}</td>
+    <td class="mobile">{{ r.Datum_aangemeld }}</td>
+    <td style="display:none" class="mobile">{{ r.auteur.username }}</td>
+    <td style="display:none" class="mobile">{{ r.Opmerkingen }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

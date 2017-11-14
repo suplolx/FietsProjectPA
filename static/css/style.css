@@ -174,6 +174,15 @@ img {
     outline:none
 }
 
+.sub-items {
+    margin:0;
+}
+
+.sub-items a {
+    text-decoration:none;
+    color:inherit;
+}
+
 .overzicht {
     background:#f9feff;
     border-collapse: collapse;
@@ -526,7 +535,6 @@ footer {
 }
 
 .modal-content {
-    background-color:#f4f4f4;
     margin:20% auto;
     width:80%;
     box-shadow:0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
@@ -742,9 +750,12 @@ footer {
     text-align:center;
     width:100%;
     grid-column:1/3;
-    margin:15px 0 1px;
     box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
     padding:5px;
+    position:fixed;
+    top:0;
+    right:0;
+    left:0;
 }
 
 #vorige-fiets {
@@ -797,6 +808,29 @@ video {
 
 .desktop {
     display:block;
+}
+
+.cookie-banner {
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    color:white;
+    background-color:rgba(10, 10, 10, 0.85);
+    padding:1em;
+    text-align:center;
+    z-index:1;
+    display:none;
+}
+
+#gezien {
+    margin:10px 35px -5px;
+    padding:1em;
+    border:none;
+    border-radius:5px;
+    background-color:white;
+    font-size:15px;
+    cursor:pointer;
 }
 
 @keyframes toggleBanner{

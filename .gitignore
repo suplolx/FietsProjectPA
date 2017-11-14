@@ -3,3 +3,6 @@ secret.py
 __pycache__/
 *.pyc
 /static/img/fietsen
+/static/img/kr8tig-logo.png
+/static/img/Compass-Transparent.png
+/static/img/cropped-favicon-192x192.png
