@@ -15,17 +15,16 @@
       <i class="fa fa-search" aria-hidden="true"></i>
     </div></a>
 
-    <a href="/overzicht"><div class="items">
+    <a href="/overzicht/1"><div class="items">
       <h1>Overzicht</h1>
       <i class="fa fa-th-list" aria-hidden="true"></i>
     </div></a>
 
-    {% if current_user.is_authenticated %}
     <a href="/test"><div class="items desktop">
       <h1>Speeltuin</h1>
       <i class="fa fa-bug" aria-hidden="true"></i>
     </div></a>
-    {% endif %}
+
 
   </div>
 
@@ -194,6 +193,7 @@
         </script>
       </div>
   </div>
+  {% endif %}
 
   <div id="simpleModal" class="modal">
 
@@ -230,7 +230,7 @@
         }
     });
     </script>
-  {% endif %}
+
 
 
 {% endblock %}

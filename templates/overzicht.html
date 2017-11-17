@@ -47,7 +47,7 @@
     <th style="display:none" class="mobile">Opmerkingen</th>
   </tr>
 
-  {% for r in result %}
+  {% for r in result.items %}
   <tr onclick="window.location='{{url_for('fiets', id=r.Nummer)}}';" class="table-data">
     <td>{{ r.Nummer }}</td>
     <td>{{ r.Merk }}</td>
@@ -60,6 +60,15 @@
   </tr>
   {% endfor %}
 </table>
+
+<div class="paginas">
+    {% if result.has_prev %}
+    <a class="nieuwer" href="{{ url_for('overzicht', pagina_num=result.prev_num) }}">&lt;&lt; Nieuwer</a>
+    {% endif %}
+    {% if result.has_next %}
+    <a class="ouder" href="{{ url_for('overzicht', pagina_num=result.next_num) }}">Ouder &gt;&gt;</a>
+    {% endif %}
+</div>
 
 <div id="screen-banner" class="screen-banner">
     <p id="close-btn">&times;</p>
@@ -74,7 +83,7 @@
         screenBanner.style.display = "block";
     }
 
-    closeBtn.addEventListener('click', function() {
+    screenBanner.addEventListener('click', function() {
         screenBanner.style.display = "none";
     });
 

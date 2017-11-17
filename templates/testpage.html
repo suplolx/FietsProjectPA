@@ -2,11 +2,21 @@
 
 {% block body %}
 
-<p style="text-align:center" id="right"></p>
-<p style="text-align:center" id="left"></p>
-<p style="text-align:center" id="graden"></p>
-
-<img style="height:auto; width:100%;"src="{{ url_for('static', filename='img/Compass-Transparent.png') }}" id="img-logo"/>
+<table style="text-align:center; margin:auto;">
+    <tr>
+        <td>Z: </td>
+        <td style="text-align:center" id="right"></td>
+    </tr>
+    <tr>
+        <td>X: </td>
+        <td style="text-align:center" id="left"></td>
+    </tr>
+    <tr>
+        <td>Y: </td>
+        <td style="text-align:center" id="graden"></td>
+    </tr>
+</table>
+<img style="height:auto; width:100%;"src="{{ url_for('static', filename='img/fietsfoetsie.png') }}" id="img-logo"/>
 
 <script>
     window.addEventListener('deviceorientation', deviceOrientationHandler, false);
@@ -22,7 +32,7 @@
         document.getElementById('right').innerHTML = Math.round(tiltFB);
         document.getElementById('graden').innerHTML = Math.round(dir);
 
-        logo.style.transform = "rotate(" + dir + "deg)";
+        logo.style.transform = "rotate(" + tiltLR + "deg) rotate3d(1,0,0, " + (tiltFB * -1) + "deg)";
     }
 
 

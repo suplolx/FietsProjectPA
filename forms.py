@@ -33,6 +33,14 @@ class SearchForm(Form):
 
 
 
+class DeletedSearchForm(Form):
+    Merk = TextField("Merk")
+    FrameType = TextField("FrameType")
+    Kleur = TextField("Kleur")
+    Datum_aangemeld = TextField("Datum")
+
+
+
 class TestForm(Form):
     pdf_formulier = BooleanField("Pdf Formulier")
     submitBtn = SubmitField("Submit")

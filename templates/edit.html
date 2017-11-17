@@ -71,5 +71,16 @@
 </div>
 </div>
 
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script>
+    var errorMsg = document.getElementById("error-message");
+    var wordCount = document.getElementById("word-count")
+
+
+    opmerkingen.addEventListener('keyup', function() {
+      if (opmerkingen.value.length <= 200) {
+        wordCount.innerHTML = 200 - opmerkingen.value.length;
+      }
+    })
+</script>
+
 {% endblock %}

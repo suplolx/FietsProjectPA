@@ -40,14 +40,22 @@
                 </tr>
                 <tr>
                     <td class="static-col">Datum ingeschreven:</td>
+                    {% if result.__tablename__ == 'fiets' %}
                     <td class="data-col">{{ result.Datum }}</td>
+                    {% else %}
+                    <td class="data-col">{{ result.Datum_aangemeld }}</td>
+                    {% endif %}
                 </tr>
                 <tr>
                     <td class="static-col">Datum aangepast:</td>
                     <td class="data-col">{{ result.Datum_aangepast }}</td>
                 </tr>
                 <tr>
+                    {% if result.__tablename__ == 'fiets' %}
                     <td class="static-col">Toegevoegd door:</td>
+                    {% else %}
+                    <td class="static-col">Verwijderd door:</td>
+                    {% endif %}
                     <td class="data-col caps">{{ result.auteur.username }}</td>
                 </tr>
                 <tr>

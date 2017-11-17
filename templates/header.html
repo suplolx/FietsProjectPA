@@ -36,7 +36,7 @@
   <div class="container">
     <div class="header-wrapper">
       <div class="header">
-        <h1 class="brand"><a href="/"><span>Fiets</span>Foetsie</a></h1>
+        <h1 class="brand"><a href="/"><span>Fiets</span>Foetsie<span>?</span></a></h1>
         <!--<a href="/"><img src="{{ url_for('static', filename='img/fietsfoetsie.png') }}"</></a>-->
       </div>
       <div class="navbar">
@@ -46,7 +46,7 @@
             {% endif %}
             <a href="/zoeken"><strong><p>Actueel</p></strong></a>
             <a href="/verwijderd"><strong><p>Verwijderd</p></strong></a>
-            <a href="/overzicht"><strong><p>Overzicht</p></strong></a>
+            <a href="/overzicht/1"><strong><p>Overzicht</p></strong></a>
             {% if current_user.is_authenticated %}
             <a href="/logout"><strong><p>Loguit</p></strong></a>
             {% else %}
@@ -61,7 +61,7 @@
                 {% endif %}
                 <a href="/zoeken"><strong><p>Actueel</p></strong></a>
                 <a href="/verwijderd"><strong><p>Verwijderd</p></strong></a>
-                <a href="/overzicht"><strong><p>Overzicht</p></strong></a>
+                <a href="/overzicht/1"><strong><p>Overzicht</p></strong></a>
                 <hr>
                 {% if current_user.is_authenticated %}
                 <a href="/logout"><strong><p>Loguit</p></strong></a>
@@ -167,9 +167,9 @@
 
     if (!localStorage.getItem('settings')) {
         localStorage.setItem('settings', JSON.stringify(settings));
-        cookieBanner.style.display = 'grid';
+        cookieBanner.style.display = window.innerWidth >= 700 ? 'grid' : 'block';
     } else if (JSON.parse(localStorage.getItem('settings')).cookieSeen === false) {
-        cookieBanner.style.display = 'grid';
+        cookieBanner.style.display = window.innerWidth >= 700 ? 'grid' : 'block';
     } else {
         cookieBanner.style.display = 'none';
     }

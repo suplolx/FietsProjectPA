@@ -316,7 +316,7 @@
         });
 
 
-        closeBtn.addEventListener('click', function() {
+        screenBanner.addEventListener('click', function() {
             screenBanner.style.display = "none";
         })
     </script>
@@ -328,6 +328,15 @@
   </form>
 </div>
 </div>
+<script>
+    var errorMsg = document.getElementById("error-message");
+    var wordCount = document.getElementById("word-count")
 
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    opmerkingen.addEventListener('keyup', function() {
+      if (opmerkingen.value.length <= 200) {
+        wordCount.innerHTML = 200 - opmerkingen.value.length;
+      }
+    })
+</script>
 {% endblock %}

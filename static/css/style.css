@@ -613,7 +613,6 @@ footer {
 
 .fiets-item {
     margin-top:15px;
-    margin-bottom:7px;
     box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
 }
 
@@ -820,7 +819,7 @@ video {
     padding:1em;
     text-align:center;
     z-index:1;
-    display:none;
+    display:block;
 }
 
 #gezien {
@@ -831,6 +830,29 @@ video {
     background-color:white;
     font-size:15px;
     cursor:pointer;
+}
+
+.paginas {
+    margin-top:10px;
+}
+
+.paginas a {
+    text-decoration:none;
+    color:floralwhite;
+    font-weight:bold;
+    padding:0.5em;
+    background:#385e74;
+    box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
+    border-radius:5px;
+    margin:10px 0;
+}
+
+.ouder {
+    float:right;
+}
+
+.nieuwer {
+    float:left;
 }
 
 @keyframes toggleBanner{

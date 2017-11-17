@@ -6,7 +6,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from werkzeug.security import check_password_hash
 from flask_weasyprint import HTML, render_pdf
 from models import Fiets, User, Verwijderd
-from forms import RegistratieForm, UserLogin, SearchForm
+from forms import RegistratieForm, UserLogin, SearchForm, DeletedSearchForm
 from dateutil.relativedelta import relativedelta
 from PIL import Image
 from base64 import b64decode
@@ -160,8 +160,8 @@ def formulier():
     return render_template('formulier.html', form=form, title="Registratie")
 
 
-@app.route('/overzicht')
-def overzicht():
+@app.route('/overzicht/<int:pagina_num>')
+def overzicht(pagina_num):
     '''Overzicht route met een tabel van alle fietsen in db
 
     Returns:
@@ -169,8 +169,9 @@ def overzicht():
         result (object): object met alle fietsen in db
 
     '''
+    result = Fiets.query.order_by(desc(Fiets.Nummer)).paginate(per_page=15, page=pagina_num, error_out=True)
 
-    result = Fiets.query.order_by(desc(Fiets.Nummer)).all()
+    # result = Fiets.query.order_by(desc(Fiets.Nummer)).all()
     deleted = [d for d in Verwijderd.query.order_by(desc(Verwijderd.Nummer)).limit(5).all() if datetime.date.today() == d.Datum_verwijderd]
     return render_template('overzicht.html', result=result, deleted=deleted, title="Overzicht")
 
@@ -218,7 +219,7 @@ def verwijderd():
 
     '''
 
-    form = SearchForm()
+    form = DeletedSearchForm()
     if request.method == 'POST':
         kwargs = dict()
         # query constructor met onbekend aantal args/kwargs
@@ -284,7 +285,7 @@ def delete_fiets(id):
     # if fiets.Foto:
     #   os.remove(IMG_PATH + fiets.Foto)
     flash('Fiets nummer {} is succesvol verwijderd!'.format(id), 'succes')
-    return redirect(url_for('overzicht'))
+    return redirect(url_for('overzicht', pagina_num=1))
 
 
 @app.route('/undo/<int:id>', methods=['GET', 'POST'])
@@ -303,7 +304,7 @@ def ongedaan_maken(id):
             db.session.delete(deleted)
             db.session.commit()
             flash("Actie succesvol ongedaan gemaakt!", "succes")
-            return redirect(url_for('overzicht'))
+            return redirect(url_for('overzicht', pagina_num=1))
 
         except IntegrityError:
             db.session.rollback()
@@ -312,7 +313,7 @@ def ongedaan_maken(id):
 
     else:
         flash("Deze fiets is al langer dan een dag verwijderd.", "error")
-        return redirect(url_for('overzicht'))
+        return redirect(url_for('overzicht', pagina_num=1))
 
 
 @app.route('/edit_fiets/<int:id>', methods=['GET', 'POST'])
@@ -384,7 +385,7 @@ def edit_fiets(id):
                 db.session.commit()
 
             flash('Fiets nummer {} aangepast!'.format(id), 'succes')
-            return redirect(url_for('overzicht'))
+            return redirect(url_for('overzicht', pagina_num=1))
 
     return render_template('edit.html', form=form)
 
@@ -401,13 +402,12 @@ def fiets(id):
         id (int): id van de fiets verkregen door form action
 
     '''
-
     f = Fiets.query.filter_by(Nummer=id).first()
-    return render_template('fiets.html', result=f)
+    query = f if f is not None else Verwijderd.query.filter_by(Nummer=id).first()
+    return render_template('fiets.html', result=query)
 
 
 @app.route('/test', methods=["GET", "POST"])
-@login_required
 def test_page():
     '''Test pagina route voor return value tests
 
