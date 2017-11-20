@@ -11,9 +11,32 @@
   </ul>
 </div>
 <div class="registratie">
+  <p id="offline-message"></p>
+
+
+  <script>
+      if (localStorage.getItem('fietsen')) {
+          const offMes = document.getElementById("offline-message");
+          const fietsLen = JSON.parse(localStorage.getItem('fietsen')).fietsen.length;
+
+          if (fietsLen === 1) {
+              offMes.style.display = 'block';
+              offMes.innerHTML = "Er is een fiets offline toegevoegd die nog niet verwerkt is. Klik hier om deze alsnog te verwerken als u weer online bent.";
+
+          } else if (fietsLen > 1) {
+              offMes.style.display = 'block';
+              offMes.innerHTML = "Er zijn " + fietsLen + " fietsen offline toegevoegd die nog niet verwerkt zijn. Klik hier om deze alsnog te verwerken als u weer online bent.";
+          }
+
+          offMes.addEventListener('click', function() {
+              window.location.replace('/offline_toegevoegd');
+          })
+      }
+  </script>
+
   <h3>Registratieformulier</h3>
-  <p id="error-message" style="color:#ff3a3a"></p>
-  <form method="post" enctype=multipart/form-data action="{{ url_for('formulier') }}">
+
+  <form id="registratie-form" method="post" enctype=multipart/form-data action="{{ url_for('formulier') }}">
       {{ form.hidden_tag() }}
     <p>
       {{ form.fietsnummer.label }}
@@ -328,6 +351,13 @@
   </form>
 </div>
 </div>
+
+
+<div class="screen-banner" id="screen-banner">
+
+</div>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
 <script>
     var errorMsg = document.getElementById("error-message");
     var wordCount = document.getElementById("word-count")

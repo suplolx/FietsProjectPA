@@ -276,6 +276,8 @@ img {
     display:none;
 }
 
+/*formulier*/
+
 .bedrijfs-info {
     background:#c9e6ff;
 }
@@ -289,13 +291,10 @@ img {
     background:#f9feff;
 }
 
-/*formulier*/
-
 .registratie form {
     display:grid;
     grid-template-columns:1fr 1fr;
     grid-gap:20px;
-
 }
 
 .registratie form label {
@@ -324,6 +323,22 @@ img {
     cursor:pointer;
     margin:auto;
     padding:0 10px;
+}
+
+#offline-message {
+    display:none;
+    margin:auto;
+    background:salmon;
+    color:floralwhite;
+    padding:0.5em;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.btn-delete {
+    color:inherit;
+    text-decoration:none;
+    float:right;
 }
 
 .toggle-btns {
@@ -853,6 +868,27 @@ video {
 
 .nieuwer {
     float:left;
+}
+
+/* offline added */
+
+.fietsen-content {
+    background-color:#f9feff;
+}
+
+.list-header {
+    background-color:#c9e6ff;
+}
+
+.fietsen-lijst li {
+    margin-top:15px;
+    padding:1em 0.5em;
+    background:lightcyan;
+    box-shadow:0 0 5px 0 rgba(72, 94, 116, 0.7);
+}
+
+.btn-right {
+    text-align:right;
 }
 
 @keyframes toggleBanner{

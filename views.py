@@ -288,6 +288,12 @@ def delete_fiets(id):
     return redirect(url_for('overzicht', pagina_num=1))
 
 
+@app.route('/offline_toegevoegd')
+@login_required
+def offline_toegevoegd():
+    return render_template('offline_toegevoegd.html')
+
+
 @app.route('/undo/<int:id>', methods=['GET', 'POST'])
 @login_required
 def ongedaan_maken(id):
