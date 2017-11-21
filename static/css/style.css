@@ -8,10 +8,6 @@
     box-sizing:border-box;
 }
 
-.bat-icons {
-    font-size:24px;
-}
-
 body {
     background:#92bde7;
     color:#385e74;
@@ -230,8 +226,25 @@ img {
     text-align:center;
     z-index:1;
     display:none;
-    animation-name:toggleBanner;
-    animation-duration:0.5s;
+    animation-name:slideIn;
+    animation-duration:0.7s;
+    width:95%;
+    margin:auto;
+}
+
+.screen-banner-out {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    color:white;
+    background-color:rgba(105, 105, 105, 0.96);
+    padding:1em;
+    text-align:center;
+    z-index:1;
+    display:none;
+    animation-name:slideOut;
+    animation-duration:0.7s;
     width:95%;
     margin:auto;
 }
@@ -333,12 +346,6 @@ img {
     padding:0.5em;
     border-radius:5px;
     cursor:pointer;
-}
-
-.btn-delete {
-    color:inherit;
-    text-decoration:none;
-    float:right;
 }
 
 .toggle-btns {
@@ -891,7 +898,37 @@ video {
     text-align:right;
 }
 
-@keyframes toggleBanner{
+.btn-add{
+    color:white;
+    text-decoration:none;
+    font-size:18px;
+    padding:0 0.2em;
+    background:rgb(56, 94, 116);
+    border:0.1px solid white;
+    border-radius:5px;
+}
+
+.btn-delete {
+    color:white;
+    text-decoration:none;
+    font-size:18px;
+    padding:0 0.5em;
+    background:darkred;
+    border:0.1px solid white;
+    margin-left:10px;
+    border-radius:5px;
+}
+
+.right {
+    float:right;
+}
+
+@keyframes slideIn{
     0% {top:-100%;}
     100% {top:0;}
+}
+
+@keyframes slideOut{
+    0% {top:-0%;}
+    100% {top:-100;}
 }
