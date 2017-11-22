@@ -21,7 +21,8 @@ formSub.addEventListener('submit', function(e) {
             localStorage.setItem('fietsen', JSON.stringify(offlineToegevoegd));
         }
         var f = JSON.parse(localStorage.getItem('fietsen'));
-        var foto = imgdata.value;
+        var foto = imgdata.value.length < 1 ? null : imgdata.value;
+        console.log(foto);
         var fiets = {
             Nummer: fNum.value,
             Merk: fMer.value,

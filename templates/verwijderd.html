@@ -23,7 +23,7 @@
   </tr>
 
   {% for r in result %}
-  <tr onclick="window.location='{{url_for('fiets', id=r.Nummer)}}';" class="table-data">
+  <tr class="table-data">
     <td>{{ r.Nummer }}</td>
     <td>{{ r.Merk }}</td>
     <td>{{ r.FrameType }}</td>

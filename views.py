@@ -292,7 +292,12 @@ def delete_fiets(id):
 @login_required
 def add_fiets():
 
-    response = {"Status": "null", "Code": "null", "Duplicate": "false", "Nummer": "null"}
+    response = {
+        "Status": "null",
+        "Code": "null",
+        "Message": "null",
+        "Duplicate": "false",
+        "Nummer": "null"}
 
     jdata = request.get_json()
     d = Fiets.query.order_by(desc(Fiets.Nummer)).first()
@@ -305,26 +310,41 @@ def add_fiets():
         jdata['Nummer'] = d.Nummer + 1
         response['Duplicate'] = "true"
 
-    filename = ''
-    if len(jdata['Foto']) > 4:
-        filename = IMG_PATH + str(time.time()).replace('.', '') + ".jpeg"
-        raw_pic = jdata['Foto']
-        proc_pic = BytesIO(b64decode(re.sub("data:image/png;base64,", "", raw_pic)))
-        im = Image.open(proc_pic)
-        im.thumbnail(IMG_SIZE)
-        im.save(filename, "JPEG")
-        filename = filename.split('/')[4]
+    try:
+        filename = None
+        if jdata['Foto'] is not None:
+            if len(jdata['Foto']) > 4:
+                filename = IMG_PATH + str(time.time()).replace('.', '') + ".jpeg"
+                raw_pic = jdata['Foto']
+                proc_pic = BytesIO(b64decode(re.sub("data:image/png;base64,", "", raw_pic)))
+                im = Image.open(proc_pic)
+                im.thumbnail(IMG_SIZE)
+                im.save(filename, "JPEG")
+                filename = filename.split('/')[4]
 
-    fiets = Fiets(Nummer=jdata['Nummer'], Merk=jdata['Merk'], FrameType=jdata['FrameType'],
-                  Kleur=jdata['Kleur'], Framenummer=jdata['Framenummer'], Gegraveerde_postcode=jdata['Gegraveerde_postcode'],
-                  Opmerkingen=jdata['Opmerkingen'], Datum=datetime.datetime.fromtimestamp(jdata['Datum'] / 1000).strftime("%Y-%m-%d"),
-                  auteur=current_user, Foto=filename)
+        fiets = Fiets(Nummer=jdata['Nummer'], Merk=jdata['Merk'], FrameType=jdata['FrameType'],
+                      Kleur=jdata['Kleur'], Framenummer=jdata['Framenummer'], Gegraveerde_postcode=jdata['Gegraveerde_postcode'],
+                      Opmerkingen=jdata['Opmerkingen'], Datum=datetime.datetime.fromtimestamp(jdata['Datum'] / 1000).strftime("%Y-%m-%d"),
+                      auteur=current_user, Foto=filename)
 
-    db.session.add(fiets)
-    db.session.commit()
-    response['Nummer'] = jdata['Nummer']
-    response['Status'] = "OK"
-    response['Code'] = 200
+        db.session.add(fiets)
+        db.session.commit()
+        response['Nummer'] = jdata['Nummer']
+        response['Status'] = "OK"
+        response['Message'] = "Succes"
+        response['Code'] = 200
+
+    except (TypeError, ValueError, SyntaxError) as e:
+        db.session.rollback
+        response['Status'] = "ERROR"
+        response['Message'] = "Error: neem contact op met de website beheerder"
+        response['Code'] = 500
+
+    except:
+        db.session.rollback
+        response['Status'] = "ERROR"
+        response['Message'] = "Onverwachte error"
+        response['Code'] = 400
 
     return json.dumps(response)
 

@@ -38,15 +38,20 @@ function addFiets(nummer){
                         screenBanner.innerHTML = `<p id="err-msg">Het lijkt erop dat fiets nummer ${jdata.Nummer} al in gebruik is...
                                                   We hebben het nummer voor je veranderd en de fiets succesvol toegevoegd! Het nieuwe nummer is: ${data.Nummer}</p>`;
 
+                        f.fietsen.splice(i, 1);
                         setTimeout(function() {screenBanner.style.display = 'none'}, 10000);
                     } else {
                         screenBanner.style.display = 'block';
                         screenBanner.innerHTML = `<p id="err-msg">Fiets nummer ${data.Nummer} is succesvol toegevoegd aan de database!</p>`;
+                        f.fietsen.splice(i, 1);
                         setTimeout(function() {screenBanner.style.display = 'none'}, 10000);
                     }
+                } else if (data.Code === 500) {
+                    screenBanner.style.display = 'block';
+                    screenBanner.innerHTML = `<p id="err-msg">Er is iets mis gegaan. ${data.Message}</p>`;
                 }
             }
-            f.fietsen.splice(i, 1);
+
         }
     }
 
