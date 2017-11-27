@@ -344,7 +344,7 @@ def add_fiets():
         db.session.rollback
         response['Status'] = "ERROR"
         response['Message'] = "Onverwachte error"
-        response['Code'] = 400
+        response['Code'] = 501
 
     return json.dumps(response)
 
@@ -354,7 +354,7 @@ def add_fiets():
 def offline_toegevoegd():
 
 
-    return render_template('offline_toegevoegd.html')
+    return render_template('offline_toegevoegd.html', title="Offline Toegevoegd")
 
 
 @app.route('/undo/<int:id>', methods=['GET', 'POST'])

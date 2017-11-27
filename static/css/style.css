@@ -881,10 +881,16 @@ video {
 
 .fietsen-content {
     background-color:#f9feff;
+    display:grid;
+    grid-template-columns:1fr 1fr;
 }
 
 .list-header {
     background-color:#c9e6ff;
+}
+
+.fietsen-lijst {
+    grid-column:1/3;
 }
 
 .fietsen-lijst li {
@@ -906,6 +912,16 @@ video {
     background:rgb(56, 94, 116);
     border:0.1px solid white;
     border-radius:5px;
+}
+
+.btn-add-all {
+    color:white;
+    text-decoration:none;
+    background:rgb(56, 94, 116);
+    border:0.1px solid white;
+    margin:auto 0 auto auto;
+    padding:1em;
+    cursor:pointer;
 }
 
 .btn-delete {
