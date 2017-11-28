@@ -11,7 +11,7 @@ from dateutil.relativedelta import relativedelta
 from PIL import Image
 from base64 import b64decode
 from io import BytesIO
-import os, re, datetime, time, json
+import os, re, datetime, time, json, sys
 
 
 # Constants voor foto verwerking
@@ -297,11 +297,19 @@ def add_fiets():
         "Code": "null",
         "Message": "null",
         "Duplicate": "false",
-        "Nummer": "null"}
+        "Nummer": "null",
+        "Origineel_nummer": "null",
+        "Laatste_db_num_actueel": "null",
+        "Laatste_db_num_verwijderd": "null"
+    }
 
     jdata = request.get_json()
     d = Fiets.query.order_by(desc(Fiets.Nummer)).first()
     d_2 = Verwijderd.query.order_by(desc(Verwijderd.Nummer)).first()
+
+    response["Origineel_nummer"] = jdata['Nummer']
+    response["Laatste_db_num_actueel"] = d.Nummer
+    response["Laatste_db_num_verwijderd"] = d_2.Nummer
 
     if int(jdata['Nummer']) <= d_2.Nummer:
         jdata['Nummer'] = d_2.Nummer + 1
@@ -335,13 +343,13 @@ def add_fiets():
         response['Code'] = 200
 
     except (TypeError, ValueError, SyntaxError) as e:
-        db.session.rollback
+        db.session.rollback()
         response['Status'] = "ERROR"
         response['Message'] = "Error: neem contact op met de website beheerder"
         response['Code'] = 500
 
     except:
-        db.session.rollback
+        db.session.rollback()
         response['Status'] = "ERROR"
         response['Message'] = "Onverwachte error"
         response['Code'] = 501
@@ -352,8 +360,6 @@ def add_fiets():
 @app.route('/offline_toegevoegd', methods=['GET', 'POST'])
 @login_required
 def offline_toegevoegd():
-
-
     return render_template('offline_toegevoegd.html', title="Offline Toegevoegd")
 
 

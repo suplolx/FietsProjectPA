@@ -5,13 +5,13 @@ const fKle = document.getElementById('kleur');
 const fGra = document.getElementById('gravpostcode');
 const fFraNum = document.getElementById('framenummer');
 const fOpm = document.getElementById('opmerkingen');
-const imgdata = document.getElementById('imgdata')
+const imgdata = document.getElementById('imgdata');
 const popUp = document.getElementById('screen-banner');
 const formSub = document.getElementById('registratie-form');
 
 formSub.addEventListener('submit', function(e) {
     var networkStatus = navigator.onLine ? true : false;
-    if (networkStatus) {
+    if (!networkStatus) {
         e.preventDefault();
         popUp.innerHTML = '';
         if (!localStorage.getItem('fietsen')) {
@@ -24,6 +24,7 @@ formSub.addEventListener('submit', function(e) {
         var foto = imgdata.value.length < 1 ? null : imgdata.value;
         console.log(foto);
         var fiets = {
+            id: f.fietsen.length + 1,
             Nummer: fNum.value,
             Merk: fMer.value,
             FrameType: fFraTyp.value,

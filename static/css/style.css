@@ -907,7 +907,7 @@ video {
 .btn-add{
     color:white;
     text-decoration:none;
-    font-size:18px;
+    font-size:16px;
     padding:0 0.2em;
     background:rgb(56, 94, 116);
     border:0.1px solid white;
@@ -927,7 +927,7 @@ video {
 .btn-delete {
     color:white;
     text-decoration:none;
-    font-size:18px;
+    font-size:16px;
     padding:0 0.5em;
     background:darkred;
     border:0.1px solid white;
