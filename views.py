@@ -11,7 +11,7 @@ from dateutil.relativedelta import relativedelta
 from PIL import Image
 from base64 import b64decode
 from io import BytesIO
-import os, re, datetime, time, json, sys
+import re, datetime, time, json
 
 
 # Constants voor foto verwerking

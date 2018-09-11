@@ -477,6 +477,15 @@ img {
     text-align:center;
     font-size:20px;
     box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1;
+    animation:slideIn;
+    animation-duration:0.7s;
+    margin:auto;
+    cursor:pointer;
 }
 
 .succes {
@@ -485,6 +494,15 @@ img {
     text-align:center;
     font-size:20px;
     box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1;
+    animation:slideIn;
+    animation-duration:0.7s;
+    margin:auto;
+    cursor:pointer;
 }
 
 .error {
@@ -493,6 +511,15 @@ img {
     text-align:center;
     font-size:20px;
     box-shadow:0 0 20px 0 rgba(72, 94, 116, 0.7);
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1;
+    animation:slideIn;
+    animation-duration:0.7s;
+    margin:auto;
+    cursor:pointer;
 }
 
 .select-row input[type="text"] {

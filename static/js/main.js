@@ -22,7 +22,6 @@ formSub.addEventListener('submit', function(e) {
         }
         var f = JSON.parse(localStorage.getItem('fietsen'));
         var foto = imgdata.value.length < 1 ? null : imgdata.value;
-        console.log(foto);
         var fiets = {
             id: f.fietsen.length + 1,
             Nummer: fNum.value,
